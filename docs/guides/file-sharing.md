@@ -21,7 +21,7 @@ For files that should outlive the moment: the sender's client splits the file in
 For live transfer between online peers: a pull-based swarm over the channel's ephemeral (unstored) stream, similar in spirit to BitTorrent — receivers request pieces, and anyone who has pieces can serve them.
 
 - **Requires at least one online seeder.** If everyone with the file goes offline, the transfer can't complete.
-- Seeded files are kept for re-serving for up to 7 days; per-session upload is capped at 500 MB.
+- Individual files are capped at 500 MB; seeded files are kept for re-serving for up to 7 days, in a local seed cache capped at 700 MB.
 - Nothing is written to storage nodes — the transfer leaves no archived trace.
 
 ## Which is which?

@@ -17,15 +17,15 @@ In settings, export your account backup. You get a single portable file containi
 - your **encrypted key** (Keystore V3), and
 - your **encrypted app state** (contacts, channels, settings).
 
-The file is encrypted with scrypt under a passphrase you choose — safe to store in a password manager, a drive, or wherever you keep important files. Without the passphrase it is useless to whoever finds it.
+The file is encrypted with scrypt under your **account password** (verified before export) — without it, the file is useless to whoever finds it. Note that the backup does contain content: your sent messages, reactions and images are inside (encrypted), so treat the file with the same care as the key itself.
 
 ## Restoring
 
-On any device — new phone, fresh browser, after a reinstall — import the backup file and enter its passphrase. Your identity and data are restored exactly.
+On any device — new phone, fresh browser, after a reinstall — import the backup file and enter your account password. Your identity and data are restored exactly.
 
 ## What backup does *not* cover
 
-- **Channel and DM history** isn't in the backup — it lives on the network and re-downloads from storage nodes (within each channel's retention window).
+- **Received message history** isn't in the backup — it lives on the network and re-downloads from storage nodes (within each channel's retention window). Your *sent* DMs and images are included.
 - A backup is a snapshot: state changes after export aren't in it. For continuously-synced state across devices, just log in on both — see below.
 
 ## Multi-device sync
@@ -36,4 +36,4 @@ You don't need to shuttle backup files between devices you use actively. Import 
 
 - Export a backup **immediately after creating your account**, before it has anything to lose.
 - Re-export occasionally, or after big changes (new channels you own, important contacts).
-- Losing the backup **passphrase** is the same as losing the backup. Store both well.
+- The backup opens with your **account password** — losing that is the same as losing the backup. Store both well.

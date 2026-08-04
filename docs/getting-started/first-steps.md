@@ -11,7 +11,7 @@ description: Join a channel, send your first message, and DM someone.
 Channels are Pombo's group spaces. You can find them two ways:
 
 - **Explore** — the in-app discovery view listing public channels.
-- **Direct link** — any channel can be shared as a URL. Opening the link takes you straight there. Try the official Pombo channel: [app.pombo.cc/#/channel/…](https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/7c370230bffd5631-1)
+- **Direct link** — any channel can be shared as a URL. Opening the link takes you straight there. Try the official Pombo channel: [app.pombo.cc/#/channel/…](https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/9862eb7bd898f338-1)
 
 Joining and chatting is always free — no gas, no fees.
 
@@ -31,13 +31,13 @@ Type and send — messages propagate peer-to-peer over the Streamr Network and a
 
 ## Direct messages
 
-You can DM **anyone with an Ethereum address** — they don't need to be online, and you don't need to be "friends" first. Enter their address (or ENS name) and write.
+You can DM **anyone who has used Pombo** — enter their address (or ENS name) and write. They don't need to be online, and you don't need to be "friends" first. The one requirement is that the recipient's inbox exists, which happens the first time they open Pombo with an account.
 
 DMs are end-to-end encrypted with sealed sender: only the recipient can read the message, and only the recipient learns who sent it. See [Encryption](../concepts/encryption.md).
 
 ## Create your own channel
 
-Creating a channel registers streams on Polygon PoS, which costs a small network fee in POL (the only paid action in Pombo). See [Managing channels](../guides/managing-channels.md).
+Creating a channel registers streams on Polygon PoS, which costs a small network fee in POL — one of the handful of on-chain actions that do (the [FAQ](../help/faq.md#is-pombo-free) has the full list). See [Managing channels](../guides/managing-channels.md).
 
 ## Before you go further
 

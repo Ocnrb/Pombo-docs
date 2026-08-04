@@ -12,13 +12,13 @@ description: Pombo and Streamr terminology, defined.
 
 **Channel** — Pombo's group space: a set of three Streamr streams (messages, ephemeral, admin) owned by its creator.
 
-**DM inbox** — your personal mailbox stream, derived from your address. Anyone can deposit (publish); only you can read (subscribe). Also carries your encrypted cross-device sync data.
+**DM inbox** — your personal mailbox stream, derived from your address and created on-chain (a one-time small fee). Anyone can deposit (publish); only you can read (subscribe). It publishes your encryption public key so others can seal messages to you, and carries your encrypted cross-device sync data.
 
 **Ephemeral publisher key** — the throwaway keypair Pombo uses as your network-level identity in a channel session, so your real account never appears on the wire. Discarded when you leave.
 
 **Ephemeral stream** — a channel's unstored stream: presence, typing indicators and live media transfer. Nothing published here is archived.
 
-**Guest mode** — a throwaway account with no persistence, for looking around.
+**Guest mode** — a throwaway account with no persistence, for looking around. Guests have no DM inbox, so no DMs and no sync.
 
 **k-anonymity tag** — the 1-byte destination hint in push wake signals. With only 256 buckets, many users share each tag, so the relay can't tell who a notification is for.
 
@@ -30,7 +30,7 @@ description: Pombo and Streamr terminology, defined.
 
 **Persistent sharing** — storage-node-backed file transfer: files are chunked into the channel's stored stream, downloadable for the retention period with the sender offline.
 
-**POL** — Polygon PoS's native currency, used for the small network fees on on-chain actions (creating channels, managing native-channel members).
+**POL** — Polygon PoS's native currency, used for the small network fees on on-chain actions (creating channels, your DM inbox, managing native-channel members, changing retention or storage nodes).
 
 **Publisher proof** — a signature by your real account over your ephemeral publisher key, letting other Pombo clients verify who you are. Public in public channels; sealed inside the encryption envelope in password channels and DMs.
 
@@ -40,7 +40,7 @@ description: Pombo and Streamr terminology, defined.
 
 **Sealed sender** — Pombo's DM envelope: the sender's identity travels inside the ciphertext, so even the recipient's inbox doesn't reveal who wrote until the recipient decrypts.
 
-**Storage node** — a Streamr node (backed by Cassandra) that archives stream history and serves it back, enabling offline delivery and history.
+**Storage node** — a Streamr node (typically backed by Cassandra) that archives stream history and serves it back, enabling offline delivery and history.
 
 **Stream** — Streamr's pub/sub primitive: a named, on-chain-registered topic that peers publish to and subscribe from. Everything in Pombo is built from streams.
 

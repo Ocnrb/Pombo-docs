@@ -13,8 +13,8 @@ Your address (`0x…`) is your identity on the network: it's how people DM you, 
 ## How your key is protected
 
 - Your private key is stored **encrypted at rest** using the standard Ethereum Keystore V3 format (scrypt key derivation + AES), unlocked with the password you choose.
-- On Android, the key is protected by the hardware-backed Android Keystore.
-- All other local app data (contacts, channel list, message cache) is additionally encrypted with AES-256-GCM using a key derived from your wallet — one account cannot read another account's local data.
+- On Android there is no password: the key is stored in encrypted preferences under a device-bound key from the Android Keystore. The honest trade-off is that anything running *as the Pombo app* on an unlocked device can use the key (this is what lets push notifications decrypt in the background); sensitive screens are gated by your device lock.
+- All other local app data (contacts, channel list, settings) is additionally encrypted with AES-256-GCM using a key derived from a deterministic wallet signature — one account cannot read another account's local data.
 
 ## There is no "Forgot password"
 

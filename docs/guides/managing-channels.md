@@ -8,11 +8,14 @@ description: Create a channel, choose its type and retention, manage members and
 
 ## Creating a channel
 
-Creating a channel registers its streams on Polygon PoS — the one action in Pombo that costs a network fee (a few cents' worth of POL). You'll choose:
+Creating a channel registers its streams on Polygon PoS, which costs a network fee (a few cents' worth of POL — the app estimates the cost and checks your balance before starting). You'll choose:
 
-- **Type** — public, password-protected, or on-chain (native). Pick based on who should get in; the trade-offs are explained in [Channels and ownership](../concepts/channels-and-ownership.md).
-- **Retention** — how long storage keeps history (default 180 days).
-- **Storage node** — the default Pombo cluster, or a custom storage node you specify (must be an HTTPS-reachable Streamr storage node).
+- **Type** — public, password-protected, or on-chain (native). Pick based on who should get in; the trade-offs are explained in [Channels and ownership](../concepts/channels-and-ownership.md). Any type can also be made **read-only** (only you post).
+- **Visibility** — whether the channel is listed in Explore. Channels are unlisted by default; listed channels also carry a description, language and category.
+- **Retention** — how long storage keeps history (1–365 days, default 180).
+- **Storage node** — the default Pombo cluster, or a custom storage node identified by its Ethereum address (the app verifies on-chain that the node publishes an HTTPS endpoint browsers can reach).
+
+Retention and storage nodes can be changed later in channel settings (each change is an on-chain transaction).
 
 The channel is owned by the account that creates it. Ownership is on-chain and cannot be transferred away from you by anyone.
 

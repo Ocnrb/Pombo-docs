@@ -10,7 +10,7 @@ Pombo's privacy design has one organizing idea: **your real account should not b
 
 ## Ephemeral publisher identities
 
-When you join a channel, Pombo generates a **throwaway keypair for that session** and uses it as your network-level publisher identity. It is never persisted and dies when you leave. The address the network sees is not your account.
+When you join a channel, Pombo generates **one throwaway keypair per channel** and uses it as your network-level publisher identity across all of that channel's streams. It is created on your first publish, never persisted, and discarded when you leave the channel or disconnect. The address the network sees is not your account.
 
 Your real identity travels as a **publisher proof** — a signature by your account over the ephemeral key — so that *other Pombo clients* can verify who you are and show your name. Where that proof travels is what varies by context:
 
@@ -30,15 +30,17 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 
 - **No telemetry.** The Streamr SDK's default metrics reporting (which would publish wallet-signed heartbeats to a public stream) is disabled.
 - **ENS lookups are decoyed**: each real lookup is mixed with decoy addresses so RPC operators can't tell which one you cared about.
-- **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for. See [Notifications](../guides/notifications.md).
-- **Network node IDs are random per session**, not derived from your wallet.
+- **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for — and both wake signals and registrations are published under a fresh throwaway key. See [Notifications](../guides/notifications.md).
+- **Cross-device sync is sealed to yourself**: state snapshots published to your own inbox are encrypted so only your key can read them, and any payload not authored by your own wallet is rejected.
+- **Network node IDs are not derived from your wallet.**
 
 ## What this model does *not* hide
 
 Honest limits, in brief — the full list is in the [threat model](../security/threat-model.md):
 
 - Public channels are public: anyone can recover your account from the proof and correlate your activity across public channels.
+- Two paths publish under your **real wallet**, not an ephemeral key: moderation actions you perform as a channel owner (the admin stream requires on-chain permission, which throwaway keys don't hold), and file uploads to channels via persistent sharing.
 - A channel creator's address is embedded in the channel ID forever.
 - Native-channel member lists are on-chain and queryable.
-- DM inboxes are enumerable: anyone can see *that* an address has an inbox and that messages arrive in it (but not from whom, or what they say).
+- DM inboxes are enumerable: given any address, anyone can find its inbox and encryption public key. Reading the inbox is owner-only on-chain, so observing arrival timing takes a node positioned in the stream's topology or the storage operator — not just any passerby.
 - Your IP address is visible to network peers, as in any P2P system. Pombo does not include traffic anonymization; use a VPN or Tor if IP privacy matters to you.

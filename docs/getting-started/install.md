@@ -17,7 +17,7 @@ To install it as an app (recommended, and required for push notifications on iOS
    - **Chrome / Edge (desktop and Android):** look for the install icon in the address bar, or *Menu → Install app*.
    - **Safari (iOS 16.4+):** *Share → Add to Home Screen*. Push notifications on iOS only work for installed PWAs.
 
-The installed app works offline for your local data and reconnects to the network when you're back online.
+Installing gives you an app icon, a full-screen UI, and — on iOS — the ability to receive push notifications.
 
 ## Android (native app)
 

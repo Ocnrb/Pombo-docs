@@ -12,10 +12,10 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 
 - **DM content and sender identity.** DMs are end-to-end encrypted (ECDH + AES-256-GCM) with sealed sender: no party except the recipient — not the network, not storage nodes, not relays — learns the content *or who sent it*.
 - **Password-channel content.** Encrypted client-side; the network carries ciphertext published by throwaway keys.
-- **Your account on the wire.** In all channel types, the transport-level publisher is an ephemeral session key, not your wallet.
-- **Your data at rest.** Keys and app state are encrypted on-device; accounts are isolated from each other.
+- **Your account on the wire.** Message traffic in every channel type is published under an ephemeral session key, not your wallet — with two exceptions, listed under visible metadata below.
+- **Your data at rest.** Keys and app state are encrypted on-device and isolated per account (a few low-sensitivity preferences remain in plain browser storage).
 - **Push privacy.** Notifications carry no content, and k-anonymity tags prevent the relay from identifying recipients.
-- **No telemetry.** The app reports nothing about you to anyone.
+- **No analytics or telemetry.** The app contacts the third-party infrastructure it needs (listed below) but reports nothing about you by design, and the Streamr SDK's default metrics stream is disabled.
 
 ## Trusted or centralized components
 
@@ -26,8 +26,9 @@ Pombo has no backend, but it is not free of third parties. Today you are trustin
 | **Google FCM / Apple APNs** | Learn that your device runs Pombo (inherent to platform push). Cannot see content or contacts. |
 | **The push relay** (one in production today) | Sees tag buckets and timing. If down, push stops (messaging is unaffected). |
 | **Public RPC endpoints** (Polygon, Ethereum) | See your chain queries and your IP. ENS lookups are decoyed to blunt this; a deliberate decision was made *not* to proxy RPC through Pombo servers, since that would move trust rather than remove it. |
-| **The Graph** | Serves channel-type and membership queries. |
-| **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for encrypted contexts, plaintext for public channels — like any storage node you could choose instead. |
+| **The Graph** | Serves channel-type and membership queries. The app ships with a shared default API key (you can configure your own). |
+| **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for password channels and DMs, plaintext for public **and native** channels — like any storage node you could choose instead. |
+| **ENS infrastructure** | Ethereum RPCs resolve ENS names (with decoy queries) and the ipfs.io gateway serves ENS avatars; both see the requests and your IP. |
 | **app.pombo.cc itself** | A hosted interface. Its operator controls what *this interface* shows (e.g. Explore curation) — but not the protocol, and alternate clients are possible. |
 
 ## Visible metadata
@@ -37,8 +38,11 @@ Things an observer can see, some inherent to the design:
 - **Public channels are public.** Anyone implementing the message format can recover the real account behind each message and correlate a person's activity **across public channels**. The countermeasure is using separate accounts, not a setting.
 - **Channel creators are permanent public record** — the creator's address is embedded in the channel ID.
 - **Native-channel membership is on-chain** and queryable by anyone.
-- **Ban lists are publicly readable** (the moderation stream is world-subscribable).
-- **DM inboxes are enumerable.** Given any Ethereum address, anyone can find its inbox and observe that messages arrive (timing and volume). Sealed sender hides *who wrote*, not *that something arrived*.
+- **Moderation is visible.** In public channels the moderation state (ban lists, pins) is world-readable; in password channels it is encrypted for members; in native channels it is member-only. In every type, though, moderation actions are published by the **owner's real wallet**, exposing the owner and the timing of each action.
+- **Your wallet touches the wire in two flows**: owner moderation actions (above), and file uploads to channels via persistent sharing — both are signed by your account rather than an ephemeral key.
+- **Password channels are brute-forceable offline.** Each publishes a password-verification challenge that anyone can fetch and grind guesses against (at a costly 310k PBKDF2 iterations per guess). A password channel is exactly as secret as its password is strong.
+- **DM inboxes are enumerable.** Given any Ethereum address, anyone can find its inbox and encryption public key. Reading it is owner-only on-chain, so observing arrival timing/volume takes a node in the stream's topology or the storage operator. Sealed sender hides *who wrote*, not *that something arrived*.
+- **Display names travel in cleartext** in public-channel presence and typing signals.
 - **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Pombo does not anonymize traffic — pair it with a VPN or Tor if your threat model includes network observers.
 - **Behavioral signals** — display names, writing style, presence patterns — are not addressed by any protocol layer.
 

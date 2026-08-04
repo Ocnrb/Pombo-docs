@@ -8,7 +8,7 @@ description: Frequently asked questions about Pombo.
 
 ### Is Pombo free?
 
-Yes. Joining channels, chatting, DMs, and file sharing are free, with no ads and no premium tier. The only costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, or granting/revoking membership in a native channel. Regular users who never create channels pay nothing, ever.
+Yes. Joining channels, chatting, DMs, and file sharing are free, with no ads and no premium tier. The only costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, the one-time creation of your personal DM inbox (needed to *receive* DMs and to sync devices), managing members in a native channel, and changing an existing channel's retention or storage nodes. If you only join channels and chat, you pay nothing.
 
 ### Can Pombo (the developers) read my messages?
 
@@ -20,7 +20,7 @@ Your channels, messages, and identity live on the Streamr Network and Polygon �
 
 ### Do I need a crypto wallet or tokens to use Pombo?
 
-No. Pombo generates its own keypair for you — no MetaMask, no seed phrase ceremony, no purchase. You only need a few cents of POL if you decide to *create* a channel. You can also import an existing Ethereum private key if you want your established identity.
+No. Pombo generates its own keypair for you — no MetaMask, no seed phrase ceremony, no purchase. You only need a few cents of POL for on-chain actions such as creating a channel or the one-time setup of your DM inbox. You can also import an existing Ethereum private key if you want your established identity.
 
 ### Are there group chats?
 

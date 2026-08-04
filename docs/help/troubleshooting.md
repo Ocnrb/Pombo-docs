@@ -27,7 +27,7 @@ Note that even when everything works, push is best-effort: delivery can lag by s
 
 On-chain actions need a little POL for gas on Polygon PoS:
 
-- Check your balance — a few cents' worth is enough.
+- Check your balance — a few cents' worth is enough. Note the app estimates the cost up front and **blocks creation below the estimate**, so "nothing happens" usually means insufficient balance, not a failure.
 - Make sure you're not rejecting the transaction prompt.
 - Public RPC endpoints occasionally rate-limit; retrying after a moment typically succeeds (the app rotates between several endpoints).
 
