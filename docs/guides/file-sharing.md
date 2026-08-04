@@ -31,7 +31,3 @@ For live transfer between online peers: a pull-based swarm over the channel's ep
 | Post a file to a channel for people to grab later | Persistent |
 | Send an image in a DM | Persistent (sealed) |
 | Push something big to people who are online right now | Mesh |
-
-:::note
-Mesh transfer is currently available in the web app only; the Android app supports persistent sharing.
-:::

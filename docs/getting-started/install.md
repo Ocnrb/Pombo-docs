@@ -25,10 +25,6 @@ A native Android app (Kotlin + Jetpack Compose) is available from the [GitHub re
 
 Requirements: Android 8.0 (API 26) or newer.
 
-:::note
-The Android app has not yet reached full feature parity with the web app: the Explore view and peer-to-peer media transfer are still web-only. Everything core — channels, DMs, moderation, sync, push — works on both.
-:::
-
 ## After installing
 
 Your next step is creating an identity — see [Your identity and keys](identity.md). There is no sign-up: the app generates a keypair locally the first time you use it.
