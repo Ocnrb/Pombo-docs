@@ -32,7 +32,7 @@ Password-channel messages are encrypted with **AES-256-GCM** under a key derived
 
 ## Native channels
 
-On-chain (native) channels are **access-controlled, not encrypted**. Messages travel as signed plaintext; confidentiality rests on the on-chain SUBSCRIBE permission that gates who can join the stream — which means, for example, that the storage node holds the plaintext. A group-key encryption layer for native channels is designed but not yet shipped. Until then, treat a native channel as a private room, not an encrypted one; for content secrecy against infrastructure, use a password channel or DMs.
+On-chain (native) channels use the Streamr SDK's **built-in group-key encryption**: content is encrypted on the wire and in storage, and only addresses holding the on-chain SUBSCRIBE permission can obtain the keys. The trade-off is identity, not content: native-channel messages are published under your **real account** rather than a throwaway key — necessarily, since publishing requires your on-chain permission, and membership is public on-chain anyway.
 
 ## Public channels
 

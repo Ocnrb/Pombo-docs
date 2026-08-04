@@ -19,6 +19,7 @@ Your real identity travels as a **publisher proof** — a signature by your acco
 | Public channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
 | Password channel | Ephemeral | Inside the AES envelope | Channel members only |
 | Direct message | Ephemeral (sealed sender) | Inside the ECDH envelope | The recipient only |
+| Native / read-only channel | Your real account | — (not needed) | Anyone — membership is already public on-chain |
 
 So in a **password channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **public channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
 
@@ -39,7 +40,7 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 Honest limits, in brief — the full list is in the [threat model](../security/threat-model.md):
 
 - Public channels are public: anyone can recover your account from the proof and correlate your activity across public channels.
-- Two paths publish under your **real wallet**, not an ephemeral key: moderation actions you perform as a channel owner (the admin stream requires on-chain permission, which throwaway keys don't hold), and file uploads to channels via persistent sharing.
+- Native and read-only channels, and moderation actions you perform as owner, publish under your **real wallet** — on-chain permission can't be held by a throwaway key. In all these cases your participation was already public on-chain.
 - A channel creator's address is embedded in the channel ID forever.
 - Native-channel member lists are on-chain and queryable.
 - DM inboxes are enumerable: given any address, anyone can find its inbox and encryption public key. Reading the inbox is owner-only on-chain, so observing arrival timing takes a node positioned in the stream's topology or the storage operator — not just any passerby.

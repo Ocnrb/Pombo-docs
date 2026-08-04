@@ -13,12 +13,12 @@ description: Channel types, on-chain ownership, retention, moderation and discov
 | Read access | Everyone | Password holders | Authorized addresses |
 | Write access | Everyone | Password holders | Authorized addresses |
 | Access enforced by | — (open by design) | Client-side encryption | On-chain Streamr permissions |
-| Content on the wire | Signed plaintext (Pombo format) | AES-256-GCM ciphertext | Signed plaintext, access-gated |
+| Content on the wire | Signed plaintext (Pombo format) | AES-256-GCM ciphertext | Streamr group-key encrypted |
 | Cost to join | Free | Free | Free (owner pays gas to add you) |
 
 - **Public channels** are open rooms. Anyone can read and write.
 - **Password channels** look public to the network, but every message is encrypted client-side with AES-256-GCM using a key derived from the shared password (PBKDF2, 310,000 iterations). Without the password, the network carries only ciphertext. One caveat: each password channel publishes a verification challenge that anyone can fetch and test guesses against offline — so the channel is exactly as secret as the password is strong.
-- **Native channels** enforce membership *on-chain*: the owner grants publish/subscribe permission to specific Ethereum addresses in the Streamr registry on Polygon. This is the only channel type where access control is enforceable at the protocol level. Note that native channels are **access-controlled rather than encrypted** — content travels and is stored as plaintext, gated by who may subscribe (see [Encryption](encryption.md)).
+- **Native channels** enforce membership *on-chain*: the owner grants publish/subscribe permission to specific Ethereum addresses in the Streamr registry on Polygon. This is the only channel type where access control is enforceable at the protocol level, and content is encrypted with Streamr's group keys, obtainable only by permissioned members. The trade-off: members publish under their real address — which a native channel already exposes on-chain (see [Encryption](encryption.md)).
 - A channel can also be created **read-only** (announcement style): everyone can read, only the owner posts.
 
 :::note Roadmap
