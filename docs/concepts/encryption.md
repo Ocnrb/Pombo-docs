@@ -34,6 +34,8 @@ Password-channel messages are encrypted with **AES-256-GCM** under a key derived
 
 On-chain (native) channels use the Streamr SDK's **built-in group-key encryption**: content is encrypted on the wire and in storage, and only addresses holding the on-chain SUBSCRIBE permission can obtain the keys. The trade-off is identity, not content: native-channel messages are published under your **real account** rather than a throwaway key — necessarily, since publishing requires your on-chain permission, and membership is public on-chain anyway.
 
+One behavior to know: group keys are delivered through Streamr's live key-exchange, so decrypting *old* history can require the original publisher (or another key holder) to be online to answer the key request.
+
 ## Public channels
 
 Public channels are **intentionally not encrypted** — they are open rooms, and their content is signed plaintext. What Pombo protects there is different: your network-level identity, via ephemeral publisher keys (see [Privacy model](privacy-model.md)).
