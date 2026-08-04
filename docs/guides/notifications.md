@@ -10,7 +10,7 @@ Push notifications are the hardest feature to do privately: the platforms (Googl
 
 ## How it works
 
-1. When someone messages a channel or inbox you follow, their client broadcasts a **wake signal** on a public Streamr stream. The signal contains no message content — only a **1-byte tag** derived from the destination, plus a small proof-of-work to deter spam.
+1. When someone messages a channel or inbox you follow, their client broadcasts a **wake signal** on a dedicated Streamr push stream — anyone can publish to it, but subscribing is restricted to the relay; it is not a publicly readable feed. The signal contains no message content — only a **1-byte tag** derived from the destination, plus a small proof-of-work to deter spam. It is also published under a throwaway key, so it doesn't reveal the sender either.
 2. A **relay** (an open-source, community-runnable server) listens for wake signals, checks the proof-of-work, and fires a Web Push to *every* device registered under that tag.
 3. Your device wakes, connects to Streamr directly, and checks whether there's actually a message for you. Only then does a notification render — with content fetched over the P2P network, never through the push system.
 
@@ -22,9 +22,9 @@ The 1-byte tag is the key trick: with only 256 possible tags, many users share e
 |---|---|---|
 | Relay | Tag bucket, aggregate frequency | Message content, sender, sender's IP, which user you are |
 | Google / Apple | That your device runs Pombo | Content, sender, which channels/contacts you have |
-| Network observer | Wake-signal timing | Content, recipient beyond the tag bucket |
+| Network observer | Wake-signal timing (see caveat below) | Content, sender, recipient beyond the tag bucket |
 
-The honest residual: platform push tokens inherently tell Google/Apple *that* you use Pombo, and timing correlation is possible for an observer watching both the wake stream and a target. Small user bases also mean smaller anonymity sets.
+The honest residuals: platform push tokens inherently tell Google/Apple *that* you use Pombo. And while the push stream's subscribe permission is restricted to the relay, that restriction is a network-level permission rather than encryption — wake signals travel unencrypted, so a determined observer running a modified node could still watch their timing. The design assumes this: even a full view of the stream yields only tag buckets and timestamps. Small user bases also mean smaller anonymity sets.
 
 ## Platform notes
 
