@@ -1,0 +1,55 @@
+/**
+ * Pombo docs theme — matches the pombo.cc landing page
+ * (black background, #F6851B accent, Inter).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
+
+:root {
+  --ifm-color-primary: #d97109;
+  --ifm-color-primary-dark: #c46608;
+  --ifm-color-primary-darker: #b95f08;
+  --ifm-color-primary-darkest: #984f06;
+  --ifm-color-primary-light: #ef7c0a;
+  --ifm-color-primary-lighter: #f6851b;
+  --ifm-color-primary-lightest: #f79b45;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+  --ifm-code-font-size: 90%;
+  --ifm-heading-font-weight: 700;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode — the Pombo default look */
+[data-theme='dark'] {
+  --ifm-color-primary: #f6851b;
+  --ifm-color-primary-dark: #e5780f;
+  --ifm-color-primary-darker: #d97109;
+  --ifm-color-primary-darkest: #b35d08;
+  --ifm-color-primary-light: #f79132;
+  --ifm-color-primary-lighter: #f89a42;
+  --ifm-color-primary-lightest: #fab269;
+  --ifm-background-color: #09090b;
+  --ifm-background-surface-color: #0f0f12;
+  --ifm-navbar-background-color: rgba(9, 9, 11, 0.85);
+  --ifm-footer-background-color: #000000;
+  --ifm-toc-border-color: rgba(255, 255, 255, 0.06);
+  --ifm-color-emphasis-300: rgba(255, 255, 255, 0.1);
+  --ifm-code-background: #111113;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme='dark'] .navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+[data-theme='dark'] .footer--dark {
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+}

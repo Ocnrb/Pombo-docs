@@ -1,0 +1,44 @@
+---
+id: privacy-model
+title: Privacy model
+description: Ephemeral publisher identities, sealed sender, and what an observer of the network can actually see.
+---
+
+# Privacy model
+
+Pombo's privacy design has one organizing idea: **your real account should not be visible on the wire unless the context deliberately makes it so.**
+
+## Ephemeral publisher identities
+
+When you join a channel, Pombo generates a **throwaway keypair for that session** and uses it as your network-level publisher identity. It is never persisted and dies when you leave. The address the network sees is not your account.
+
+Your real identity travels as a **publisher proof** — a signature by your account over the ephemeral key — so that *other Pombo clients* can verify who you are and show your name. Where that proof travels is what varies by context:
+
+| Context | Publisher on the wire | Where the identity proof lives | Who learns your real account |
+|---|---|---|---|
+| Public channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
+| Password channel | Ephemeral | Inside the AES envelope | Channel members only |
+| Direct message | Ephemeral (sealed sender) | Inside the ECDH envelope | The recipient only |
+
+So in a **password channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **public channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
+
+## Anonymity = another account
+
+Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want to participate somewhere without linking it to your main identity, create another account — it's free, instant, and completely unlinked (each account's local data is isolated). This is a deliberate design decision: one strong, simple mechanism instead of a subtle toggle that's easy to get wrong.
+
+## Metadata protections that are on by default
+
+- **No telemetry.** The Streamr SDK's default metrics reporting (which would publish wallet-signed heartbeats to a public stream) is disabled.
+- **ENS lookups are decoyed**: each real lookup is mixed with decoy addresses so RPC operators can't tell which one you cared about.
+- **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for. See [Notifications](../guides/notifications.md).
+- **Network node IDs are random per session**, not derived from your wallet.
+
+## What this model does *not* hide
+
+Honest limits, in brief — the full list is in the [threat model](../security/threat-model.md):
+
+- Public channels are public: anyone can recover your account from the proof and correlate your activity across public channels.
+- A channel creator's address is embedded in the channel ID forever.
+- Native-channel member lists are on-chain and queryable.
+- DM inboxes are enumerable: anyone can see *that* an address has an inbox and that messages arrive in it (but not from whom, or what they say).
+- Your IP address is visible to network peers, as in any P2P system. Pombo does not include traffic anonymization; use a VPN or Tor if IP privacy matters to you.
