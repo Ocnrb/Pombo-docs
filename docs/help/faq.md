@@ -30,14 +30,10 @@ Group conversation in Pombo is a **channel** (public, password-protected, or mem
 
 Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **native channel**, where membership is an on-chain permission you can revoke.
 
-### Why do my old DMs from before July 2026 not appear?
-
-The DM encryption path was rebuilt in July 2026 (sealed sender). Messages sent under the earlier scheme are no longer readable by current clients — a clean break made while the network was young.
-
 ### Is Pombo anonymous?
 
 Pombo is **pseudonymous with strong wire privacy**, not an anonymity network. Your real account is hidden from network observers, but public channel participation is publicly attributable to your account, and your IP is visible to peers like in any P2P app. For separation of contexts, use multiple accounts; for IP privacy, use a VPN or Tor. Full picture: [Threat model](../security/threat-model.md).
 
 ### How is this different from Signal? From Matrix? From Farcaster?
 
-Briefly: **Signal** has stronger anonymity guarantees but runs on central servers and requires a phone number. **Matrix** federates servers; Pombo has no servers to federate — transport is P2P and state is on-chain. **Farcaster**-style social protocols are public-first; Pombo is messaging-first with E2EE DMs and encrypted channels. Pombo's particular corner is: no sign-up, no servers, creator-owned channels, sealed-sender DMs.
+Briefly: **Signal** is the gold standard for content encryption, but it requires a phone number — a real-world identity anchor — and runs on central servers you have to trust to stay up and neutral; Pombo asks for no identifier at all and has no servers. **Matrix** federates servers; Pombo has no servers to federate — transport is P2P and state is on-chain. **Farcaster**-style social protocols are public-first; Pombo is messaging-first with E2EE DMs and encrypted channels. Pombo's particular corner is: no sign-up, no servers, creator-owned channels, sealed-sender DMs.

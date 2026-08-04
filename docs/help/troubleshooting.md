@@ -31,10 +31,6 @@ On-chain actions need a little POL for gas on Polygon PoS:
 - Make sure you're not rejecting the transaction prompt.
 - Public RPC endpoints occasionally rate-limit; retrying after a moment typically succeeds (the app rotates between several endpoints).
 
-## My DMs from before July 2026 are gone
-
-Expected — see the [FAQ](faq.md#why-do-my-old-dms-from-before-july-2026-not-appear). The DM encryption path was rebuilt with sealed sender; pre-migration messages are not readable by current clients.
-
 ## I forgot my password / lost my device
 
 If you have a **backup file**, import it and enter its passphrase — everything comes back. If you don't, the account cannot be recovered by anyone, including us; that's the flip side of no one else holding your keys. Create a new account and [back it up this time](../guides/backup-and-recovery.md).
