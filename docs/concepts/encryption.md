@@ -6,7 +6,7 @@ description: How Pombo encrypts DMs (ECDH + sealed sender), password channels, a
 
 # Encryption
 
-All cryptography in Pombo runs **on your device**, using the browser's built-in WebCrypto for symmetric operations and audited Ethereum libraries for elliptic-curve operations. Private keys never leave your device; the only key material ever published is your *public* key, attached to your DM inbox so others can encrypt to you.
+All cryptography in Pombo runs **on your device**. The web app uses the browser's built-in WebCrypto for symmetric operations and audited Ethereum libraries for elliptic-curve operations; the Android app uses the platform's native crypto for symmetric operations and runs the same Ethereum library code for elliptic-curve operations, guaranteeing byte-for-byte compatibility between the two. Private keys never leave your device; the only key material ever published is your *public* key, attached to your DM inbox so others can encrypt to you.
 
 ## Direct messages: end-to-end, sealed sender
 
