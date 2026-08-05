@@ -43,7 +43,6 @@ Things an observer can see, some inherent to the design:
 - **DM inboxes are enumerable.** Given any Ethereum address, anyone can find its inbox and encryption public key. Reading it is owner-only on-chain, so observing arrival timing/volume takes a node in the stream's topology or the storage operator. Sealed sender hides *who wrote*, not *that something arrived*.
 - **Display names travel in cleartext** in public-channel presence and typing signals.
 - **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Today, pair Pombo with a VPN or Tor if your threat model includes network observers; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
-- **Behavioral signals** — display names, writing style, presence patterns — are not addressed by any protocol layer.
 
 ## Known open problems
 
