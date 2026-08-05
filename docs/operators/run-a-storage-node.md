@@ -22,14 +22,14 @@ A production storage node stack:
 
 ## The web-safe profile (required for Pombo)
 
-Pombo's clients run in browsers, and browsers are strict about what they'll fetch. For your node to be usable from the Pombo web app, its public endpoint **must** be:
+These requirements are set by the strictest Pombo client — the web app, which runs in a browser and is bound by browser rules about what it may fetch. A node that meets them works for every client, the Android app included. Your node's public endpoint **must** be:
 
 - **HTTPS** with a valid certificate,
 - on a **real hostname** — not an IP literal, not `localhost`,
 - publicly reachable,
 - answering with **CORS headers**: `Access-Control-Allow-Origin: https://app.pombo.cc` (plus `Vary: Origin`), configured on the reverse proxy.
 
-An `http://` endpoint or a bare IP will simply never be contacted by the web client, and without the CORS header the browser blocks every request even when everything else is right — the most common "it should work but doesn't" case. Register the HTTPS URL as the node's metadata so clients can discover it on-chain.
+An `http://` endpoint or a bare IP will simply never be contacted by the web client, and without the CORS header the browser blocks every request even when everything else is right — the most common "it should work but doesn't" case (the Android app is not subject to CORS, so a node failing only that check still appears to work from Android — easy to miss when testing). Register the HTTPS URL as the node's metadata so clients can discover it on-chain.
 
 ## Setup outline
 
