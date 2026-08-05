@@ -31,7 +31,7 @@
   --ifm-color-primary-lightest: #fab269;
   --ifm-background-color: #09090b;
   --ifm-background-surface-color: #0f0f12;
-  --ifm-navbar-background-color: rgba(9, 9, 11, 0.85);
+  --ifm-navbar-background-color: #09090b;
   --ifm-footer-background-color: #000000;
   --ifm-toc-border-color: rgba(255, 255, 255, 0.06);
   --ifm-color-emphasis-300: rgba(255, 255, 255, 0.1);
@@ -40,9 +40,24 @@
 }
 
 [data-theme='dark'] .navbar {
-  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: none;
+}
+
+/* Glass navbar on desktop only: backdrop-filter turns the navbar into a
+   containing block, which breaks the fixed-position mobile sidebar drawer. */
+@media (min-width: 997px) {
+  [data-theme='dark'] {
+    --ifm-navbar-background-color: rgba(9, 9, 11, 0.85);
+  }
+  [data-theme='dark'] .navbar {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Solid background for the mobile drawer in dark mode */
+[data-theme='dark'] .navbar-sidebar {
+  background: #09090b;
 }
 
 [data-theme='dark'] .footer--dark {
