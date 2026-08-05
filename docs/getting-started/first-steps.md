@@ -31,7 +31,7 @@ Type and send — messages propagate peer-to-peer over the Streamr Network and a
 
 ## Direct messages
 
-You can DM **anyone who has used Pombo** — enter their address (or ENS name) and write. They don't need to be online, and you don't need to be "friends" first. The one requirement is that the recipient's inbox exists, which happens the first time they open Pombo with an account.
+You can DM **anyone who has created their inbox** — enter their address (or ENS name) and write. They don't need to be online, and you don't need to be "friends" first. The one requirement is that the recipient has set up their DM inbox — an explicit one-time step (it registers streams on-chain, so it costs a small POL fee). The same applies to you: create your inbox to receive DMs and replies.
 
 DMs are end-to-end encrypted with sealed sender: only the recipient can read the message, and only the recipient learns who sent it. See [Encryption](../concepts/encryption.md).
 
