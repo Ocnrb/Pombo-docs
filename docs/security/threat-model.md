@@ -42,7 +42,7 @@ Things an observer can see, some inherent to the design:
 - **Password channels are brute-forceable offline.** Each publishes a password-verification challenge that anyone can fetch and grind guesses against (at a costly 310k PBKDF2 iterations per guess). A password channel is exactly as secret as its password is strong.
 - **DM inboxes are enumerable.** Given any Ethereum address, anyone can find its inbox and encryption public key. Reading it is owner-only on-chain, so observing arrival timing/volume takes a node in the stream's topology or the storage operator. Sealed sender hides *who wrote*, not *that something arrived*.
 - **Display names travel in cleartext** in public-channel presence and typing signals.
-- **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Pombo does not anonymize traffic — pair it with a VPN or Tor if your threat model includes network observers.
+- **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Today, pair Pombo with a VPN or Tor if your threat model includes network observers; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
 - **Behavioral signals** — display names, writing style, presence patterns — are not addressed by any protocol layer.
 
 ## Known open problems
@@ -51,7 +51,3 @@ Things an observer can see, some inherent to the design:
 - **Moderation in open channels is advisory.** Accounts are free, so bans in public/password channels are one click to evade. Enforceable moderation exists only in native channels.
 - **Push anonymity scales with the user base.** The k in k-anonymity is roughly (users ÷ 256); a small network means small anonymity sets.
 - **No key rotation for a compromised account.** Identity *is* the keypair. If your key leaks, the account is the attacker's too; there is no revocation. Migrate to a new account.
-
-## Non-goals
-
-Pombo does not attempt to be: an anonymity network (no onion routing), a blockchain-free system (ownership *should* be on-chain), or a moderated platform (the protocol is neutral; interfaces curate).

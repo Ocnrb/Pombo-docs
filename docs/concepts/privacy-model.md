@@ -44,4 +44,4 @@ Honest limits, in brief — the full list is in the [threat model](../security/t
 - A channel creator's address is embedded in the channel ID forever.
 - Native-channel member lists are on-chain and queryable.
 - DM inboxes are enumerable: given any address, anyone can find its inbox and encryption public key. Reading the inbox is owner-only on-chain, so observing arrival timing takes a node positioned in the stream's topology or the storage operator — not just any passerby.
-- Your IP address is visible to network peers, as in any P2P system. Pombo does not include traffic anonymization; use a VPN or Tor if IP privacy matters to you.
+- Your IP address is visible to network peers, as in any P2P system. For now, use a VPN or Tor if IP privacy matters to you; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
