@@ -15,7 +15,6 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 - **Your account on the wire.** In public and password channels and DMs, message traffic is published under an ephemeral session key, not your wallet. Native and read-only channels publish under your real account (their membership is on-chain and public anyway); owner moderation actions do too — see visible metadata below.
 - **Your data at rest.** Keys and app state are encrypted on-device and isolated per account (a few low-sensitivity preferences remain in plain browser storage).
 - **Push privacy.** Notifications carry no content, and k-anonymity tags prevent the relay from identifying recipients.
-- **No analytics or telemetry.** The app contacts the third-party infrastructure it needs (listed below) but reports nothing about you by design, and the Streamr SDK's default metrics stream is disabled.
 
 ## Trusted or centralized components
 

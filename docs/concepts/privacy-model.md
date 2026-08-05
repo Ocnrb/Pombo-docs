@@ -29,7 +29,6 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 
 ## Metadata protections that are on by default
 
-- **No telemetry.** The Streamr SDK's default metrics reporting (which would publish wallet-signed heartbeats to a public stream) is disabled.
 - **ENS lookups are decoyed**: each real lookup is mixed with decoy addresses so RPC operators can't tell which one you cared about.
 - **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for — and both wake signals and registrations are published under a fresh throwaway key. See [Notifications](../guides/notifications.md).
 - **Cross-device sync is sealed to yourself**: state snapshots published to your own inbox are encrypted so only your key can read them, and any payload not authored by your own wallet is rejected.
