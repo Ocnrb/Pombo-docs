@@ -13,7 +13,7 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 - **DM content and sender identity.** DMs are end-to-end encrypted (ECDH + AES-256-GCM) with sealed sender: no party except the recipient — not the network, not storage nodes, not relays — learns the content *or who sent it*.
 - **Password-channel content.** Encrypted client-side; the network carries ciphertext published by throwaway keys.
 - **Your account on the wire.** In public and password channels and DMs, message traffic is published under an ephemeral session key, not your wallet. Native and read-only channels publish under your real account (their membership is on-chain and public anyway); owner moderation actions do too — see visible metadata below.
-- **Your data at rest.** Keys and app state are encrypted on-device and isolated per account (a few low-sensitivity preferences remain in plain browser storage).
+- **Your data at rest.** Keys and app state are encrypted on-device and isolated per account, on both web and Android (in the web app, a few low-sensitivity preferences remain in plain browser storage).
 - **Push privacy.** Notifications carry no content, and k-anonymity tags prevent the relay from identifying recipients.
 
 ## Trusted or centralized components

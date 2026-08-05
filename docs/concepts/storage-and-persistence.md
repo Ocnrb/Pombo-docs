@@ -21,7 +21,7 @@ What storage nodes hold is exactly what the network carried: ciphertext for pass
 
 Everything personal is local, and encrypted at rest:
 
-- Your key lives in browser storage as a self-encrypted keystore (scrypt); app state (contacts, channel list, settings) and an image ledger live in IndexedDB, encrypted with AES-256-GCM and isolated per account.
+- Your key and app state (contacts, channel list, settings, image ledger) are encrypted at rest and isolated per account — in the web app as a scrypt keystore plus AES-256-GCM-encrypted IndexedDB; on Android in the platform's encrypted storage under the Android Keystore.
 - Channel messages are deliberately **not** cached locally — they are re-fetched from storage nodes each time you open a channel.
 - Sent DMs are kept locally — a quirk of the mailbox model: your sent messages live in the *recipient's* inbox, so your own copy is your record of them.
 

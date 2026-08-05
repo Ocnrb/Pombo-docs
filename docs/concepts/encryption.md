@@ -44,8 +44,8 @@ Public channels are **intentionally not encrypted** — they are open rooms, and
 
 Independently of transport encryption:
 
-- Your **private key** is stored as a scrypt-encrypted keystore, unlocked by your password.
-- The app's **state** (contacts, channel list, settings) is encrypted with AES-256-GCM under a key derived from a deterministic wallet signature (PBKDF2, 310,000 iterations) — it unlocks with the account, not with a separate prompt, and is isolated per account.
-- A few low-sensitivity items remain in plain browser storage (display name, ENS cache, which streams are registered for push).
+- Your **private key** is stored encrypted at rest — on the web as a scrypt-encrypted keystore unlocked by your password; on Android in encrypted preferences under a device-bound key from the Android Keystore (no password — see [Your identity and keys](../getting-started/identity.md)).
+- The app's **state** (contacts, channel list, settings) is encrypted with AES-256-GCM and isolated per account. On the web the key derives from a deterministic wallet signature (PBKDF2, 310,000 iterations); on Android it is protected by the platform's native encrypted storage.
+- In the web app, a few low-sensitivity items remain in plain browser storage (display name, ENS cache, which streams are registered for push).
 
 See [Your identity and keys](../getting-started/identity.md).
