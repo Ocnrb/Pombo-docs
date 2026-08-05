@@ -6,7 +6,7 @@ description: How Pombo works without servers — Streamr transport, Polygon perm
 
 # Architecture
 
-Pombo has no message backend — conversations never pass through a Pombo server. The client composes three decentralized layers:
+Pombo has no message backend — conversations never pass through a Pombo server. The client sits on top of three decentralized layers — transport, persistence, and ownership — and handles all cryptography itself:
 
 ```
 ┌─────────────────────────────────────────────┐
