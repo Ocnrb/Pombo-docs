@@ -6,7 +6,7 @@ description: Pombo's two file transports — live P2P mesh and persistent storag
 
 # File sharing
 
-Pombo can move files two ways. The app picks the appropriate one, but knowing the difference explains what to expect.
+Pombo can move files two ways, and **you choose which** when sending. Knowing the difference helps you pick the right one.
 
 ## Persistent sharing (via storage nodes)
 
