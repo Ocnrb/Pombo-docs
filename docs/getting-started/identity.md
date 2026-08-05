@@ -18,7 +18,7 @@ Your address (`0x…`) is your identity on the network: it's how people DM you, 
 
 ## There is no "Forgot password"
 
-:::danger Back up your account
+:::danger[Back up your account]
 Pombo has no servers, which also means **no account recovery**. No company can reset your password or restore your key. If you lose your device and have no backup, the account — and everything encrypted with it — is gone permanently.
 
 Export a backup file as soon as you create your account: see [Backup and recovery](../guides/backup-and-recovery.md).

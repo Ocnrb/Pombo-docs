@@ -6,7 +6,7 @@ description: Export a portable, encrypted backup of your account — the only re
 
 # Backup and recovery
 
-:::danger The one rule
+:::danger[The one rule]
 Pombo has no servers and no custodians, so there is **no "forgot password", no account recovery, no support ticket** that can bring an account back. Your backup file *is* the recovery mechanism. Make one when you create your account, and keep it somewhere safe.
 :::
 
