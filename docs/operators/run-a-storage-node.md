@@ -36,7 +36,7 @@ An `http://` endpoint or a bare IP will simply never be contacted by the web cli
 1. **Cassandra first.** Install Cassandra 4.1.x and create the keyspace and tables the storage plugin expects — the plugin does **not** auto-create its schema. The schema (keyspace plus `bucket` and `stream_data` tables) is documented in the Streamr storage plugin docs.
 2. **Streamr node.** Install and configure the node with the storage plugin enabled, pointed at your Cassandra, with an Ethereum identity (private key) for the node.
 3. **TLS proxy.** Put nginx/Caddy with a certificate in front of port 8002. Never expose 8002 itself publicly.
-4. **Firewall.** Open only: SSH, 80/443 (proxy), and the Streamr P2P port (13456 by default — check your node config; the storage plugin may use an additional WebSocket port). Cassandra's ports (7000, 9042, 7199) must never be publicly reachable.
+4. **Firewall.** Open only: SSH, 80/443 (proxy), and the Streamr node's P2P WebSocket port (32200 by default — check your node config). Cassandra's ports (7000, 9042, 7199) must never be publicly reachable.
 5. **Register on-chain** so clients can discover your endpoint, and verify:
 
 ```bash
