@@ -25,10 +25,9 @@ Pombo has no backend, but it is not free of third parties. Today you are trustin
 |---|---|
 | **Google FCM / Apple APNs** | Learn that your device runs Pombo (inherent to platform push). Cannot see content or contacts. |
 | **The push relay** (one in production today) | Sees tag buckets and timing. If down, push stops (messaging is unaffected). |
-| **Public RPC endpoints** (Polygon, Ethereum) | See your chain queries and your IP. ENS lookups are decoyed to blunt this, and you can configure your own RPC endpoint. |
+| **Public RPCs and ENS infrastructure** | Polygon RPCs serve chain queries, Ethereum RPCs resolve ENS names (with decoy queries), and the ipfs.io gateway serves ENS avatars — all see the requests and your IP. You can configure your own RPC endpoint. |
 | **The Graph** | Serves channel-type and membership queries. The app ships with a shared default API key (you can configure your own). |
 | **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for password channels, native channels and DMs; plaintext for public channels — like any storage node you could choose instead. |
-| **ENS infrastructure** | Ethereum RPCs resolve ENS names (with decoy queries) and the ipfs.io gateway serves ENS avatars; both see the requests and your IP. |
 | **app.pombo.cc itself** | A hosted interface. Its operator controls what *this interface* shows (e.g. Explore curation) — but not the protocol, and alternate clients are possible. |
 
 ## Visible metadata
