@@ -18,7 +18,7 @@ Push is **opt-in per channel**; your own DM inbox is registered automatically, r
 
 The full flow, with the k-anonymity collision made visible — Alice and Charlie share tag `0x75` for different channels, so both devices wake and each verifies locally; Bob's tag doesn't match, so his device never wakes (click to zoom):
 
-![Push notifications with k-anonymity: registration phase and wake-signal phase across sender, relay, FCM and recipients](/img/diagrams/push-k-anonymity.jpg)
+![Push notifications with k-anonymity: registration phase and wake-signal phase across sender, relay, FCM and recipients](../assets/diagrams/push-k-anonymity.webp)
 
 *Registrations and wake signals travel over the Streamr push stream; the relay maps tags to push subscriptions and fires Web Push; each woken device checks the storage node and only renders a notification if there really is a message for it.*
 

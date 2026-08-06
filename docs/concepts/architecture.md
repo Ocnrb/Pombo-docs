@@ -51,14 +51,14 @@ The full picture per channel type — on-chain metadata, permissions, partitions
 <Tabs>
 <TabItem value="public" label="Public channel">
 
-![Public channel — multiple stream architecture: three streams with their on-chain metadata, permissions and partition layout](/img/diagrams/public-channel.jpg)
+![Public channel — multiple stream architecture: three streams with their on-chain metadata, permissions and partition layout](../assets/diagrams/public-channel.webp)
 
 *Content flows unencrypted; the four metadata variants cover visible/hidden and read-only combinations.*
 
 </TabItem>
 <TabItem value="password" label="Password channel">
 
-![Password channel — multiple stream architecture: identical stream layout, with every partition encrypted by a key derived from the shared password](/img/diagrams/password-channel.jpg)
+![Password channel — multiple stream architecture: identical stream layout, with every partition encrypted by a key derived from the shared password](../assets/diagrams/password-channel.webp)
 
 *Same layout as a public channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
 
@@ -78,7 +78,7 @@ Sending a DM means encrypting a message for the recipient and dropping it into t
 
 Your own inbox also doubles as your **cross-device sync channel**: the app writes self-encrypted state snapshots to it, so a second device logged into the same account converges to the same contacts, channels and settings.
 
-![DM inbox — dual stream architecture: a stored inbox stream and an ephemeral stream, with ECDH-derived AES-256-GCM encryption on every partition](/img/diagrams/dm-inbox.jpg)
+![DM inbox — dual stream architecture: a stored inbox stream and an ephemeral stream, with ECDH-derived AES-256-GCM encryption on every partition](../assets/diagrams/dm-inbox.webp)
 
 *The inbox publishes the owner's encryption public key as on-chain metadata (green); every partition — messages, sync, notifications, file chunks — is sealed with a key derived via ECDH + HKDF before it touches the network.*
 
