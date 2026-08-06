@@ -4,6 +4,9 @@ title: Architecture
 description: How Pombo works without servers — Streamr transport, Polygon permissions, storage nodes, client-side crypto.
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Architecture
 
 Pombo has no message backend — conversations never pass through a Pombo server. The client sits on top of three decentralized layers — transport, persistence, and ownership — and handles all cryptography itself:
@@ -43,6 +46,30 @@ Every channel is a set of **three Streamr streams** under the creator's address:
 
 The stream ID itself has the form `{ownerAddress}/{id}`, which is what makes ownership self-evident: the creator's address is part of the channel's name.
 
+The full picture per channel type — on-chain metadata, permissions, partitions, and where encryption applies (click to zoom):
+
+<Tabs>
+<TabItem value="public" label="Public channel">
+
+![Public channel — multiple stream architecture: three streams with their on-chain metadata, permissions and partition layout](/img/diagrams/public-channel.jpg)
+
+*Content flows unencrypted; the four metadata variants cover visible/hidden and read-only combinations.*
+
+</TabItem>
+<TabItem value="password" label="Password channel">
+
+![Password channel — multiple stream architecture: identical stream layout, with every partition encrypted by a key derived from the shared password](/img/diagrams/password-channel.jpg)
+
+*Same layout as a public channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
+
+</TabItem>
+<TabItem value="native" label="Native channel">
+
+Diagram coming soon — native channels use the same triple-stream layout with per-address on-chain permissions and Streamr group-key encryption. See [Channels and ownership](channels-and-ownership.md).
+
+</TabItem>
+</Tabs>
+
 ## Direct messages: the mailbox model
 
 Each user has a personal **DM inbox** — a deterministic pair of streams derived from their address: a stored message stream (13 partitions: messages, sync, notifications, file chunks) and an ephemeral one for presence and typing. Its permissions are the inverse of a normal channel: **anyone can publish** into it, but **only the owner can subscribe** (read). The inbox metadata also carries the owner's encryption public key, which is what lets anyone seal a message to them.
@@ -50,6 +77,10 @@ Each user has a personal **DM inbox** — a deterministic pair of streams derive
 Sending a DM means encrypting a message for the recipient and dropping it into their inbox. Because the inbox is backed by a storage node, the recipient doesn't need to be online — they pull their inbox history when they next open the app. This is what makes Pombo's DMs asynchronous, like a phone's SMS inbox, rather than requiring both parties online.
 
 Your own inbox also doubles as your **cross-device sync channel**: the app writes self-encrypted state snapshots to it, so a second device logged into the same account converges to the same contacts, channels and settings.
+
+![DM inbox — dual stream architecture: a stored inbox stream and an ephemeral stream, with ECDH-derived AES-256-GCM encryption on every partition](/img/diagrams/dm-inbox.jpg)
+
+*The inbox publishes the owner's encryption public key as on-chain metadata (green); every partition — messages, sync, notifications, file chunks — is sealed with a key derived via ECDH + HKDF before it touches the network.*
 
 ## The interface is replaceable
 

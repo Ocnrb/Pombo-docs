@@ -16,6 +16,12 @@ Push notifications are the hardest feature to do privately: the platforms (Googl
 
 Push is **opt-in per channel**; your own DM inbox is registered automatically, registrations refresh every 6 hours, and the proof-of-work is bound to a 10-second epoch so wake signals can't be replayed.
 
+The full flow, with the k-anonymity collision made visible — Alice and Charlie share tag `0x75` for different channels, so both devices wake and each verifies locally; Bob's tag doesn't match, so his device never wakes (click to zoom):
+
+![Push notifications with k-anonymity: registration phase and wake-signal phase across sender, relay, FCM and recipients](/img/diagrams/push-k-anonymity.jpg)
+
+*Registrations and wake signals travel over the Streamr push stream; the relay maps tags to push subscriptions and fires Web Push; each woken device checks the storage node and only renders a notification if there really is a message for it.*
+
 The 1-byte tag is the key trick: with only 256 possible tags, many users share each one (**k-anonymity**). The relay knows "someone in bucket 173 has mail," not who. The cost is that your device occasionally wakes for someone else's message and silently goes back to sleep.
 
 ## What the push path does and doesn't learn

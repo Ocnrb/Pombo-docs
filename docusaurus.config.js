@@ -45,6 +45,8 @@ const config = {
     ],
   ],
 
+  plugins: ['docusaurus-plugin-image-zoom'],
+
   themes: [
     [
       '@easyops-cn/docusaurus-search-local',
@@ -122,6 +124,13 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
         additionalLanguages: ['bash', 'json'],
+      },
+      zoom: {
+        selector: '.markdown img',
+        background: {
+          light: 'rgba(255, 255, 255, 0.95)',
+          dark: 'rgba(9, 9, 11, 0.95)',
+        },
       },
     }),
 };
