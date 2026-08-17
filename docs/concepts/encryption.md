@@ -30,9 +30,9 @@ Because encryption is pure key-derivation (no session handshake), the recipient 
 
 Password-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.
 
-## Native channels
+## Closed channels
 
-On-chain (native) channels use the Streamr SDK's **built-in group-key encryption**: content is encrypted on the wire and in storage, and only addresses holding the on-chain SUBSCRIBE permission can obtain the keys. The trade-off is identity, not content: native-channel messages are published under your **real account** rather than a throwaway key — necessarily, since publishing requires your on-chain permission, and membership is public on-chain anyway.
+Closed channels use the Streamr SDK's **built-in group-key encryption**: content is encrypted on the wire and in storage, and only addresses holding the on-chain SUBSCRIBE permission can obtain the keys. The trade-off is identity, not content: closed-channel messages are published under your **real account** rather than a throwaway key — necessarily, since publishing requires your on-chain permission, and membership is public on-chain anyway.
 
 One behavior to know: group keys are delivered through Streamr's live key-exchange, so decrypting *old* history can require the original publisher (or another key holder) to be online to answer the key request.
 

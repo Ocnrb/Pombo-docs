@@ -8,7 +8,7 @@ description: Frequently asked questions about Pombo.
 
 ### Is Pombo free?
 
-Yes. Joining channels, chatting, DMs, and file sharing are free, with no ads and no premium tier. The only costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, the one-time creation of your personal DM inbox (needed to *receive* DMs and to sync devices), managing members in a native channel, and changing an existing channel's retention or storage nodes. If you only join channels and chat, you pay nothing.
+Yes. Joining channels, chatting, DMs, and file sharing are free, with no ads and no premium tier. The only costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, the one-time creation of your personal DM inbox (needed to *receive* DMs and to sync devices), managing members in a closed channel, and changing an existing channel's retention or storage nodes. If you only join channels and chat, you pay nothing.
 
 ### Can Pombo (the developers) read my messages?
 
@@ -24,11 +24,11 @@ No. Pombo generates its own keypair for you — no MetaMask, no seed phrase cere
 
 ### Are there group chats?
 
-Group conversation in Pombo is a **channel** (public, password-protected, or membership-gated). There is no separate "group DM" primitive — a private group is a password or native channel.
+Group conversation in Pombo is a **channel** (public, password-protected, or membership-gated). There is no separate "group DM" primitive — a private group is a password or closed channel.
 
 ### Someone I banned came back with a new account. Why?
 
-Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **native channel**, where membership is an on-chain permission you can revoke.
+Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **closed channel**, where membership is an on-chain permission you can revoke.
 
 ### Is Pombo anonymous?
 

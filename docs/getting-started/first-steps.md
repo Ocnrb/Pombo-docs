@@ -21,7 +21,7 @@ There are three kinds of channels; the app shows which is which:
 |---|---|---|
 | **Public** | Everyone | Everyone |
 | **Password** | Anyone with the shared password | Anyone with the password |
-| **On-chain (native)** | Members authorized by Ethereum address | Authorized members |
+| **Closed** | Members authorized by Ethereum address | Authorized members |
 
 More detail in [Channels and ownership](../concepts/channels-and-ownership.md).
 

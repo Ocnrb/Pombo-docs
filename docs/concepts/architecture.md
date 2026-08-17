@@ -63,9 +63,9 @@ The full picture per channel type — on-chain metadata, permissions, partitions
 *Same layout as a public channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
 
 </TabItem>
-<TabItem value="native" label="Native channel">
+<TabItem value="native" label="Closed channel">
 
-Diagram coming soon — native channels use the same triple-stream layout with per-address on-chain permissions and Streamr group-key encryption. See [Channels and ownership](channels-and-ownership.md).
+Diagram coming soon — closed channels use the same triple-stream layout with per-address on-chain permissions and Streamr group-key encryption. See [Channels and ownership](channels-and-ownership.md).
 
 </TabItem>
 </Tabs>

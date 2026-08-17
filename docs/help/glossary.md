@@ -12,6 +12,8 @@ description: Pombo and Streamr terminology, defined.
 
 **Channel** — Pombo's group space: a set of three Streamr streams (messages, ephemeral, admin) owned by its creator.
 
+**Closed channel** — a channel with on-chain verified membership: per-address permissions recorded on Polygon. The only channel type with enforceable bans. Called a *native channel* in Pombo's source code.
+
 **DM inbox** — your personal mailbox stream, derived from your address and created on-chain (a one-time small fee). Anyone can deposit (publish); only you can read (subscribe). It publishes your encryption public key so others can seal messages to you, and carries your encrypted cross-device sync data.
 
 **Ephemeral publisher key** — the throwaway keypair Pombo uses as your network-level identity in a channel session, so your real account never appears on the wire. Discarded when you leave.
@@ -24,13 +26,11 @@ description: Pombo and Streamr terminology, defined.
 
 **Mesh sharing** — live P2P file transfer between online peers over the ephemeral stream. Needs an online seeder.
 
-**Native channel** (on-chain channel) — a channel whose membership is enforced by per-address permissions recorded on Polygon. The only channel type with enforceable bans.
-
 **Password channel** — a channel encrypted client-side with a key derived from a shared password (PBKDF2 → AES-256-GCM). The network sees only ciphertext.
 
 **Persistent sharing** — storage-node-backed file transfer: files are chunked into the channel's stored stream, downloadable for the retention period with the sender offline.
 
-**POL** — Polygon PoS's native currency, used for the small network fees on on-chain actions (creating channels, your DM inbox, managing native-channel members, changing retention or storage nodes).
+**POL** — Polygon PoS's native currency, used for the small network fees on on-chain actions (creating channels, your DM inbox, managing closed-channel members, changing retention or storage nodes).
 
 **Publisher proof** — a signature by your real account over your ephemeral publisher key, letting other Pombo clients verify who you are. Public in public channels; sealed inside the encryption envelope in password channels and DMs.
 
