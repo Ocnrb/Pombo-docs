@@ -19,8 +19,8 @@ That's Raspberry Pi territory. A home PC, a free-tier cloud VM, or the cheapest 
 ## Setup
 
 ```bash
-git clone https://github.com/Ocnrb/Pombo
-cd Pombo/extra/pombo-relay
+git clone https://github.com/Ocnrb/Pombo-push
+cd Pombo-push
 npm install
 cp .env.example .env
 npx web-push generate-vapid-keys   # → VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY
@@ -37,6 +37,8 @@ Fill in `.env` before starting: paste the generated VAPID keys, and set `RELAY_P
 | `POW_DIFFICULTY` | Proof-of-work requirement for wake signals (default 4) |
 | `PUSH_STREAM_ID` | The Streamr stream to listen on — **must be** `0xae340e799e8151f6a4999d245e466197aa217667/push` for the live Pombo network. The code's fallback default is a placeholder: with it, the relay starts cleanly, listens to an empty stream, and silently never delivers anything. |
 | `ADMIN_PORT` | Admin API port (default 8000; set `0` to disable the admin API entirely) |
+
+One consequence of sealed registrations: clients encrypt the registration to the relay key **published in the push stream's on-chain metadata**, and verify it against the relay address configured in the app. A relay with a different key never receives readable registrations on the live stream — so today, running your own relay means running it against your own push stream (and client configuration), not piggybacking on the live one. Contributing a relay to the main network is a coordination step with the project rather than a config value.
 
 ## Keeping it running
 

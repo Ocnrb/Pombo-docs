@@ -19,9 +19,9 @@ To install it as an app (recommended, and required for push notifications on iOS
 
 Installing gives you an app icon, a full-screen UI, and — on iOS — the ability to receive push notifications.
 
-## Android (native app)
+## Android app
 
-A native Android app (Kotlin + Jetpack Compose) is available from the [GitHub repository](https://github.com/Ocnrb/Pombo). It is wire-compatible with the web app — same account format, same channels, same encryption — and uses Firebase Cloud Messaging for push notifications.
+An Android app — a native Kotlin/Jetpack Compose UI running the same protocol stack as the web app — is available from the [GitHub repository](https://github.com/Ocnrb/Pombo-Android). It is wire-compatible with the web app — same account format, same channels, same encryption — and uses Firebase Cloud Messaging for push notifications.
 
 Requirements: Android 8.0 (API 26) or newer.
 

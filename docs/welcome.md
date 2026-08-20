@@ -29,7 +29,7 @@ Your conversations belong to *you*:
 ## Platforms
 
 - **Web app (PWA)** — [app.pombo.cc](https://app.pombo.cc). Works in any modern browser and can be installed as an app.
-- **Android** — a native Kotlin app, wire-compatible with the web app. See [Install](getting-started/install.md).
+- **Android** — a native Kotlin/Compose UI over the same protocol stack as the web app, wire-compatible. See [Install](getting-started/install.md).
 
 ## Links
 
