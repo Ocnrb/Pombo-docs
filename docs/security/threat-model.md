@@ -29,6 +29,14 @@ Pombo has no backend, but it is not free of third parties. Today you are trustin
 | **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for password channels, closed channels and DMs; plaintext for public channels — like any storage node you could choose instead. |
 | **app.pombo.cc itself** | A hosted interface. Its operator controls what *this interface* shows (e.g. Explore curation) — but not the protocol, and alternate clients are possible. |
 
+## The web client's security policy
+
+The web app's CSP makes a single bet: **no third-party code ever runs**. Every script is bundled and served from the app's own origin; external scripts, inline scripts and `eval` are refused. Stealing keys requires compromising the app's code or its delivery — injecting content is not enough.
+
+Outbound connections are deliberately **not** restricted: custom RPC endpoints and custom storage nodes are user-configurable, and storage nodes resolve from an on-chain registry, so a fixed allowlist is incompatible with user-chosen infrastructure. (ENS avatars can live on any HTTPS host, so image loading is open for the same reason.)
+
+The accepted risk follows: if attacker code ever does run in the app's origin — an XSS that beats the sanitizer, a poisoned dependency, compromised hosting — nothing contains it. It can read the encrypted keystore and crack your password offline, and capture the key while the wallet is unlocked. **Origin compromise means vault compromise; your password's strength is the last line of defense** (scrypt makes each guess expensive).
+
 ## Visible metadata
 
 Things an observer can see, some inherent to the design:
