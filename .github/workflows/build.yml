@@ -1,0 +1,26 @@
+# Builds the site on every pull request, so a PR shows green/red before merge.
+# The deploy workflow runs the same build again on main as the gate.
+#
+# For a Docusaurus site the build IS the test suite: broken links, broken
+# anchors and MDX compilation errors all fail it.
+
+name: Build
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
