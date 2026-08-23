@@ -23,6 +23,7 @@ const sidebars = {
       items: [
         'concepts/architecture',
         'concepts/channels-and-ownership',
+        'concepts/gated-and-paid-channels',
         'concepts/encryption',
         'concepts/privacy-model',
         'concepts/storage-and-persistence',

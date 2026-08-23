@@ -15,7 +15,7 @@ Your conversations belong to *you*:
 - **No central servers.** Messages travel over the [Streamr Network](https://streamr.network), a peer-to-peer pub/sub network. There is no Pombo backend that could go down or be seized.
 - **You own your channels.** Channel ownership and permissions live on [Polygon PoS](https://polygon.technology) as on-chain records. If the Pombo interface disappeared tomorrow, your channels would still exist on the network.
 - **No middlemen.** Pombo is fully open source. Encryption happens on your device, before anything touches the network.
-- **No hidden costs.** Joining and participating in channels is always free. A small network fee (paid in POL) applies only to on-chain actions such as creating a channel.
+- **No hidden costs.** Pombo takes no cut of anything and has no premium tier. A small network fee (paid in POL) applies only to on-chain actions such as creating a channel. Creators can put their own channel behind a token or a subscription, and that money is theirs — but open channels stay free to join and use.
 
 ## Where to start
 

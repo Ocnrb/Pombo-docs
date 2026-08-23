@@ -8,7 +8,9 @@ description: Frequently asked questions about Pombo.
 
 ### Is Pombo free?
 
-Yes. Joining channels, chatting, DMs, and file sharing are free, with no ads and no premium tier. The only costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, the one-time creation of your personal DM inbox (needed to *receive* DMs and to sync devices), managing members in a closed channel, and changing an existing channel's retention or storage nodes. If you only join channels and chat, you pay nothing.
+Pombo itself has no ads, no premium tier and no cut of anything. Chatting, DMs and file sharing are free; the costs are small Polygon network fees (paid in POL, typically cents) for **on-chain actions**: creating a channel, the one-time creation of your personal DM inbox (needed to *receive* DMs and to sync devices), managing members in a closed channel, and changing an existing channel's retention or storage nodes.
+
+Two things a channel's *creator* can charge for, if they choose: a **gated** channel asks you to hold a token or NFT, and a **paid** channel asks for a subscription. That money goes to the channel owner — the contract takes no fee and Pombo is not a party to it. Everything else stays free, and if you only join open channels and chat, you pay nothing.
 
 ### Can Pombo (the developers) read my messages?
 
@@ -20,15 +22,15 @@ Your channels, messages, and identity live on the Streamr Network and Polygon �
 
 ### Do I need a crypto wallet or tokens to use Pombo?
 
-No. Pombo generates its own keypair for you — no MetaMask, no seed phrase ceremony, no purchase. You only need a few cents of POL for on-chain actions such as creating a channel or the one-time setup of your DM inbox. You can also import an existing Ethereum private key if you want your established identity.
+No. Pombo generates its own keypair for you — no MetaMask, no seed phrase ceremony, no purchase. You only need a few cents of POL for on-chain actions such as creating a channel or the one-time setup of your DM inbox (and, if you want into a gated or paid channel, whatever asset that channel's owner asks for). You can also import an existing Ethereum private key if you want your established identity.
 
 ### Are there group chats?
 
-Group conversation in Pombo is a **channel** (public, password-protected, or membership-gated). There is no separate "group DM" primitive — a private group is a password or closed channel.
+Group conversation in Pombo is a **channel**. There is no separate "group DM" primitive — a private group is a password or closed channel.
 
 ### Someone I banned came back with a new account. Why?
 
-Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **closed channel**, where membership is an on-chain permission you can revoke.
+Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **closed, gated or paid channel**, where membership is contract state you control and the network refuses messages from anyone the contract won't vouch for.
 
 ### Is Pombo anonymous?
 

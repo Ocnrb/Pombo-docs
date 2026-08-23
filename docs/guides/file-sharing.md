@@ -24,6 +24,16 @@ For live transfer between online peers: a pull-based swarm over the channel's ep
 - Individual files are capped at 500 MB; seeded files are kept for re-serving for up to 7 days, in a local seed cache capped at 700 MB.
 - Nothing is written to storage nodes — the transfer leaves no archived trace.
 
+## Files in private channels
+
+In closed, gated and paid channels, both transports are sealed with the channel's encryption key — the same one that protects messages — so storage nodes and the network carry ciphertext either way.
+
+One consequence to expect: because those keys rotate, **a member who joins after a rotation cannot open files shared before it**, exactly as they cannot read the messages from that period. In a paid channel that is the rule rather than an edge case — a subscription buys the future. See [Encryption](../concepts/encryption.md#closed-gated-and-paid-channels).
+
+## Managing transfers
+
+Downloads in progress live in the notification bell. Completed ones save automatically. While a transfer runs you can **pause and resume** it — both transports — and storage downloads can also be **cancelled**, which discards what was fetched (a pause keeps it). When you finish seeding a file, the bytes stay as an inactive record you can re-seed later; deleting them is a separate, explicit action.
+
 ## Which is which?
 
 | You want to… | Transport |
