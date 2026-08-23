@@ -12,7 +12,8 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 
 - **DM content and sender identity.** DMs are end-to-end encrypted (ECDH + AES-256-GCM) with sealed sender: no party except the recipient — not the network, not storage nodes, not relays — learns the content *or who sent it*.
 - **Password-channel content.** Encrypted client-side; the network carries ciphertext published by throwaway keys.
-- **Your account on the wire.** In public and password channels and DMs, message traffic is published under an ephemeral session key, not your wallet. Closed and read-only channels publish under your real account (their membership is on-chain and public anyway); owner moderation actions do too — see visible metadata below.
+- **Your account on the wire.** In public and password channels and DMs, message traffic is published under an ephemeral session key, not your wallet. Contract-backed channels are the exception: the membership contract is the publisher, but your account's signature travels with each message and identifies you — as does publishing a read-only channel or a moderation action. See visible metadata below.
+- **Private-channel content.** Closed, gated and paid channels are encrypted under a channel key that only members obtain, rotated over time; the network and storage nodes carry ciphertext.
 - **Your data at rest.** Keys and app state are encrypted on-device and isolated per account, on both web and Android (in the web app, a few low-sensitivity preferences remain in plain browser storage).
 - **Push privacy.** Notifications carry no content, and k-anonymity tags prevent the relay from identifying recipients.
 
@@ -26,7 +27,8 @@ Pombo has no backend, but it is not free of third parties. Today you are trustin
 | **The push relay** (one in production today) | Sees tag buckets and timing. If down, push stops (messaging is unaffected). |
 | **Public RPCs and ENS infrastructure** | Polygon RPCs serve chain queries, Ethereum RPCs resolve ENS names (with decoy queries), and the ipfs.io gateway serves ENS avatars — all see the requests and your IP. You can configure your own RPC endpoint. |
 | **The Graph** | Serves channel-type and membership queries. The app ships with a shared default API key (you can configure your own). |
-| **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for password channels, closed channels and DMs; plaintext for public channels — like any storage node you could choose instead. |
+| **The default storage cluster** | Run by the Pombo project (two replicated servers, one operator). Holds ciphertext for password channels, contract-backed channels and DMs; plaintext for public channels — like any storage node you could choose instead. |
+| **The PomboGate contracts** | Decide who may participate in every closed, gated and paid channel, and route subscription payments (the contract never custodies them — the transfer goes straight to the channel owner). Open source and not upgradeable once deployed, but **not audited**. A flaw there is a flaw in access control and payment, not in the confidentiality of other channel types. |
 | **app.pombo.cc itself** | A hosted interface. Its operator controls what *this interface* shows (e.g. Explore curation) — but not the protocol, and alternate clients are possible. |
 
 ## The web client's security policy
@@ -43,17 +45,22 @@ Things an observer can see, some inherent to the design:
 
 - **Public channels are public.** Anyone implementing the message format can recover the real account behind each message and correlate a person's activity **across public channels**. The countermeasure is using separate accounts, not a setting.
 - **Channel creators are permanent public record** — the creator's address is embedded in the channel ID.
-- **Closed-channel membership is on-chain** and queryable by anyone.
-- **Moderation is visible.** In public channels the moderation state (ban lists, pins) is world-readable; in password channels it is encrypted for members; in closed channels it is member-only. In every type, though, moderation actions are published by the **owner's real wallet**, exposing the owner and the timing of each action.
-- **Your wallet touches the wire in closed and read-only channels** (all traffic, including file uploads) and in owner moderation actions — contexts where your permission is on-chain and therefore already public. Elsewhere, file uploads ride the channel's throwaway identity like any other message.
+- **Membership of contract-backed channels is on-chain** and queryable by anyone: allowlists, bans, and — in paid channels — who subscribed and until when. Paying for a channel is a public act.
+- **Moderation is visible.** In public channels the moderation state (ban lists, pins) is world-readable; in password channels it is encrypted for members; in contract-backed channels it is member-only. In every type, though, moderation actions are published by the **owner's real wallet**, exposing the owner and the timing of each action.
+- **Your wallet signs everything you publish in closed, gated, paid and read-only channels** (all traffic, including file uploads), in the clear — the membership contract is the publisher, but it is not a mask, and [it cannot be](../concepts/privacy-model.md#contract-backed-channels). Elsewhere, file uploads ride the channel's throwaway identity like any other message.
+- **Stream history is served without authentication.** Storage nodes answer plain HTTP requests for any stream's retained messages, asking for no proof of membership — access control in Pombo is cryptographic, not perimetral. Content stays sealed, so this changes nothing for DMs, password channels or public ones. What it changes is reach: in contract-backed channels the authorship graph above — which account wrote in which channel, and when — can be harvested for the whole retention window, offline, by someone who never passed the gate and never joined the network.
 - **Password channels are brute-forceable offline.** Each publishes a password-verification challenge that anyone can fetch and grind guesses against (at a costly 310k PBKDF2 iterations per guess). A password channel is exactly as secret as its password is strong.
-- **DM inboxes are enumerable.** Given any Ethereum address, anyone can find its inbox and encryption public key. Reading it is owner-only on-chain, so observing arrival timing/volume takes a node in the stream's topology or the storage operator. Sealed sender hides *who wrote*, not *that something arrived*.
+- **DM inboxes are enumerable, and their traffic pattern is public.** Given any Ethereum address, anyone can find its inbox and encryption public key. The on-chain permission restricts *subscribing* to the owner, but it does not gate the storage node's history: the plain HTTP read above returns the retained envelopes of any inbox, so arrival times and message counts are open to anyone. Sealed sender still holds — each envelope carries a different throwaway publisher and its content stays encrypted — so what leaks is timing and volume, never correspondents. Sealed sender hides *who wrote*, not *that something arrived*.
+
+  For a threat model that includes traffic analysis, this is the residual to weigh: a watcher who checks an inbox periodically learns your messaging rhythm without ever learning a single contact.
 - **Display names travel in cleartext** in public-channel presence and typing signals.
 - **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Today, pair Pombo with a VPN or Tor if your threat model includes network observers; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
 
 ## Known open problems
 
 - **DM spam.** Inboxes are public-write by design, so anyone can send to anyone — including spam that consumes inbox storage. Rate-limiting mechanisms were evaluated and rejected as ineffective at this layer; a better answer is an open research question.
-- **Moderation in open channels is advisory.** Accounts are free, so bans in public/password channels are one click to evade. Enforceable moderation exists only in closed channels.
+- **Moderation in open channels is advisory.** Accounts are free, so bans in public/password channels are one click to evade. Enforceable moderation exists only in contract-backed channels.
+- **Revocation lags by up to a rotation.** Losing access — selling the gate asset, letting a subscription expire, being banned — stops at the contract immediately, but reading stops only when the channel's encryption key next rotates (weekly, and only while the channel's admin is online). A determined ex-member reads new messages until then. Shrinking that window means rotating more often, which costs every member a re-distribution; the current setting is a deliberate trade.
+- **Unaudited contracts in the access path.** See the trusted-components table above.
 - **Push anonymity scales with the user base.** The k in k-anonymity is roughly (users ÷ 256); a small network means small anonymity sets.
 - **No key rotation for a compromised account.** Identity *is* the keypair. If your key leaks, the account is the attacker's too; there is no revocation. Migrate to a new account.

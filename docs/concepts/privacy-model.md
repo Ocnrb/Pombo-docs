@@ -19,9 +19,24 @@ Your real identity travels as a **publisher proof** — a signature by your acco
 | Public channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
 | Password channel | Ephemeral | Inside the AES envelope | Channel members only |
 | Direct message | Ephemeral (sealed sender) | Inside the ECDH envelope | The recipient only |
-| Closed / read-only channel | Your real account | — (not needed) | Anyone — membership is already public on-chain |
+| Closed / gated / paid channel | The channel's membership contract | Your account's signature on the message itself | Anyone |
+| Read-only channel (owner posts) | Your real account | — (not needed) | Anyone |
 
 So in a **password channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **public channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
+
+## Contract-backed channels
+
+Closed, gated and paid channels are the one place where the throwaway identity does not apply, and the reason is worth understanding rather than memorizing.
+
+Access there is enforced by the network itself: before accepting your message, nodes check its signature against the channel's membership contract. That check is what makes a ban stick. But it means the signature has to be **readable by parties that hold no key** — the network is not a member and never will be. So while the contract's address is what appears as the publisher, your account's signature travels beside it in the clear, and recovering your address from it is arithmetic anyone can do.
+
+The result is a clean trade rather than a leak. Content stays encrypted to members. Authorship is public: who wrote in the channel, and when. Enforceable access and publisher anonymity pull in opposite directions, and these channel types choose enforcement.
+
+:::note[Designed, not built]
+A pseudonymous mode — proving membership once at the door, then publishing under a throwaway key with authorship moved inside the ciphertext — is designed and not implemented. It would trade some of the enforcement back for privacy, which is why it is a mode rather than a replacement.
+:::
+
+The [threat model](../security/threat-model.md#visible-metadata) covers how far that authorship actually travels.
 
 ## Anonymity = another account
 
@@ -39,8 +54,9 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 Honest limits, in brief — the full list is in the [threat model](../security/threat-model.md):
 
 - Public channels are public: anyone can recover your account from the proof and correlate your activity across public channels.
-- Closed and read-only channels, and moderation actions you perform as owner, publish under your **real wallet** — on-chain permission can't be held by a throwaway key. In all these cases your participation was already public on-chain.
+- Contract-backed channels do not hide authorship — [see above](#contract-backed-channels).
+- Read-only channels and moderation actions you perform as owner publish under your **real wallet**, as does your ownership of the channel itself.
 - A channel creator's address is embedded in the channel ID forever.
-- Closed-channel member lists are on-chain and queryable.
-- DM inboxes are enumerable: given any address, anyone can find its inbox and encryption public key. Reading the inbox is owner-only on-chain, so observing arrival timing takes a node positioned in the stream's topology or the storage operator — not just any passerby.
+- Membership of contract-backed channels is public blockchain state: who is allowlisted, who is banned, who paid for a subscription and until when.
+- DM inboxes are enumerable, and their traffic pattern is public: given any address, anyone can find its inbox, and a plain HTTP request to the storage node returns its retained envelopes. When messages arrived and how many is readable by anyone. What that does *not* reveal is who they were from — every message carries a different throwaway publisher and sealed content ([threat model](../security/threat-model.md#visible-metadata)).
 - Your IP address is visible to network peers, as in any P2P system. For now, use a VPN or Tor if IP privacy matters to you; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.

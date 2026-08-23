@@ -1,7 +1,7 @@
 ---
 id: encryption
 title: Encryption
-description: How Pombo encrypts DMs (ECDH + sealed sender), password channels, and media.
+description: How Pombo encrypts DMs (ECDH + sealed sender), password channels, epoch-keyed private channels, and media.
 ---
 
 # Encryption
@@ -30,11 +30,33 @@ Because encryption is pure key-derivation (no session handshake), the recipient 
 
 Password-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.
 
-## Closed channels
+## Closed, gated and paid channels
 
-Closed channels use the Streamr SDK's **built-in group-key encryption**: content is encrypted on the wire and in storage, and only addresses holding the on-chain SUBSCRIBE permission can obtain the keys. The trade-off is identity, not content: closed-channel messages are published under your **real account** rather than a throwaway key — necessarily, since publishing requires your on-chain permission, and membership is public on-chain anyway.
+These are encrypted with an **epoch key**: one AES-256-GCM key shared by the whole channel, versioned, and rotated over time. Every message carries the identifier of the key that sealed it, so a client picks the right one without trial decryption. The Streamr SDK's own group-key layer is not used.
 
-One behavior to know: group keys are delivered through Streamr's live key-exchange, so decrypting *old* history can require the original publisher (or another key holder) to be online to answer the key request.
+### How members get the key
+
+Getting the key is a small protocol of its own, running on the channel's keys stream:
+
+1. The channel admin **announces** each new epoch — its number, an identifier, and a hash of the key. The key itself is never announced.
+2. A newcomer who passes the gate **requests** it, publishing a throwaway public key made fresh for that one request.
+3. **Any member** already holding the key may answer, sealing it to that throwaway key (the same ECDH + HKDF + AES-256-GCM construction as a DM).
+4. The newcomer accepts the key only if it hashes to what the admin announced.
+
+Three properties fall out of that design. Distribution does not depend on the admin — any member can answer, so a channel does not go dark when its owner sleeps. A malicious member cannot poison the key, only waste bandwidth, because the admin's hash is the anchor. And because the keys stream is *stored*, a request waits for an answer instead of requiring the two people to be online simultaneously.
+
+The one irreducible cost: between passing the gate and receiving the key there is a wait, during which the app shows the channel as waiting for keys. It is over as soon as any member's client sees the request.
+
+### Rotation and history
+
+Epoch keys rotate — on a weekly cadence in gated and paid channels, and whenever the owner removes someone. Rotation is what turns a contract-level revocation into an actual loss of access: a member who sells the gate asset or lets a subscription lapse keeps reading until the current epoch ends.
+
+How much history a new member receives depends on the channel:
+
+- **Closed, gated by token or NFT** — every retained epoch. Holding access *is* the condition, so there is nothing to withhold.
+- **Paid** — the current epoch only. A subscription buys the future, never the channel's past.
+
+What the epoch key protects is the *content*. It does not conceal who wrote each message: authorship travels outside the encryption in these channels, necessarily — see [Privacy model](privacy-model.md#contract-backed-channels).
 
 ## Public channels
 

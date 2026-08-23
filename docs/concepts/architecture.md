@@ -30,21 +30,24 @@ Pombo has no message backend — conversations never pass through a Pombo server
 - **Transport — Streamr Network.** Messages are published to *streams* (topics) and propagate peer-to-peer between subscribers. No relay server sits in the middle of your conversations.
 - **Ownership — Polygon PoS.** Streams are registered on-chain in the Streamr registry contracts. The record of who owns a channel and who may publish or subscribe to it is public blockchain state — not a row in someone's database. On-chain writes (creating a channel, granting membership) cost a small fee in POL; everything else is free.
 - **Persistence — storage nodes.** Streamr nodes running the storage plugin retain stream history, so messages reach people who were offline. Channel owners choose the storage node and the retention period. See [Storage and persistence](storage-and-persistence.md).
-- **Cryptography — your device.** Keys are generated and used locally. DM encryption, password-channel encryption and message signing all happen client-side before anything is published. Two deliberate choices are worth knowing: the Streamr SDK's own encryption layer is **disabled** — all confidentiality is applied at the app layer — and channel messages are published under a per-channel throwaway key carrying a signed proof of the real account inside the payload (see [Privacy model](privacy-model.md)).
+- **Cryptography — your device.** Keys are generated and used locally. DM encryption, password-channel encryption and message signing all happen client-side before anything is published. Two deliberate choices are worth knowing: the Streamr SDK's own encryption layer is **disabled** — all confidentiality is applied at the app layer — and channel messages are published under a per-channel throwaway key carrying a signed proof of the real account inside the payload (in contract-backed channels, the publisher is the membership contract instead; see [Privacy model](privacy-model.md)).
 
 Beyond these layers, the client talks to a small set of auxiliary services — public RPC endpoints, The Graph, the push relay, the Explore curation manifest — none of which handle message content. The full list and what each one sees is in the [threat model](../security/threat-model.md).
 
 ## Anatomy of a channel
 
-Every channel is a set of **three Streamr streams** under the creator's address:
+Every channel is a set of Streamr streams under the creator's address — three for public and password channels, four when membership is contract-backed:
 
 | Stream | Stored? | Partitions | Purpose |
 |---|---|---|---|
 | `…-1` Message stream | Yes | 11 | Chat content (P0), edit/delete control messages (P1), file chunks (P2–P10) |
 | `…-2` Ephemeral stream | No | 3 | Presence and typing (P0), live P2P media signals (P1) and data (P2) |
 | `…-3` Admin stream | Yes | 3 | Moderation state (P0), channel image (P1), password challenge (P2) — writable only by the owner |
+| `…-4` Keys stream | Yes | 1 | Distribution of the channel's encryption keys — closed, gated and paid channels only |
 
 The stream ID itself has the form `{ownerAddress}/{id}`, which is what makes ownership self-evident: the creator's address is part of the channel's name.
+
+The keys stream is stored on purpose: it is what makes joining a private channel asynchronous. A newcomer's key request waits there until some member comes online to answer it, instead of both having to be connected at the same moment. See [Encryption](encryption.md#closed-gated-and-paid-channels).
 
 The full picture per channel type — on-chain metadata, permissions, partitions, and where encryption applies (click to zoom):
 
@@ -63,9 +66,9 @@ The full picture per channel type — on-chain metadata, permissions, partitions
 *Same layout as a public channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
 
 </TabItem>
-<TabItem value="native" label="Closed channel">
+<TabItem value="native" label="Closed, gated and paid channels">
 
-Diagram coming soon — closed channels use the same triple-stream layout with per-address on-chain permissions and Streamr group-key encryption. See [Channels and ownership](channels-and-ownership.md).
+Diagram coming soon — contract-backed channels add the keys stream to the layout above. Every stream's permission is held by one grantee, the channel's membership contract, and content is encrypted under a channel key distributed over `…-4`. See [Gated and paid channels](gated-and-paid-channels.md).
 
 </TabItem>
 </Tabs>
