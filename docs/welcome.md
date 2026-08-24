@@ -2,38 +2,63 @@
 id: welcome
 title: What is Pombo?
 slug: /
-description: Pombo is an open-source gateway to decentralized communications — group channels, communities, and private direct messages with no central servers.
+description: "Pombo is an open-source, permissionless messaging and social media app: peer-to-peer, with no accounts to approve, no servers in the middle, and channels whose creators keep everything they charge."
 ---
 
 # What is Pombo?
 
-**Pombo is an open-source gateway to decentralized communications** — group chats, communities, and private direct messages. No central servers, no sign-ups, no one reading your data.
+**Pombo is an open-source messaging and social media app**: group channels and private direct messages, running without a company in the middle of any of it.
 
-Your conversations belong to *you*:
+What follows is a consequence of how it is built, not a policy anyone maintains.
 
-- **No permissions needed.** Your account is a cryptographic keypair generated locally in your browser. No email, no phone number, no sign-up form.
-- **No central servers.** Messages travel over the [Streamr Network](https://streamr.network), a peer-to-peer pub/sub network. There is no Pombo backend that could go down or be seized.
-- **You own your channels.** Channel ownership and permissions live on [Polygon PoS](https://polygon.technology) as on-chain records. If the Pombo interface disappeared tomorrow, your channels would still exist on the network.
-- **No middlemen.** Pombo is fully open source. Encryption happens on your device, before anything touches the network.
-- **No hidden costs.** Pombo takes no cut of anything and has no premium tier. A small network fee (paid in POL) applies only to on-chain actions such as creating a channel. Creators can put their own channel behind a token or a subscription, and that money is theirs — but open channels stay free to join and use.
+## Nobody has to let you in
+
+Your account is a cryptographic keypair generated on your device the first time you open the app. There is no email, no phone number, no form, and no approval step. Because no record of you is created anywhere, there is no account to suspend, rate-limit or lock out.
+
+Creating a channel is the same: you register it and it is yours. It becomes your property. Accounts are free and instant, so keeping separate identities for separate parts of your life costs nothing.
+
+## No servers in the middle
+
+Messages travel peer-to-peer across the [Streamr Network](https://streamr.network). There is no Pombo backend they pass through, so there is nothing to hack, subpoena or switch off.
+
+History is kept by storage nodes. Pombo runs a default cluster, but a channel's owner can point it at a different node, and [anyone can run one](operators/run-a-storage-node.md). The same is true of the [relay](operators/run-a-relay.md) that delivers push notifications.
+
+## Your channels outlive the app
+
+Channel ownership and access rules are records on [Polygon PoS](https://polygon.technology), registered to your address. Nobody, Pombo included, can take a channel from you or change who may read it.
+
+That also makes this interface replaceable. Any client speaking the same protocol reads the same channels, so if Pombo disappeared tomorrow, what you built would still be on the network.
+
+## Encrypted before it leaves your device
+
+All cryptography runs locally, on web and Android alike, before anything is published. Direct messages are end-to-end encrypted and sealed, so only the recipient learns who wrote. In public and password channels you publish under a throwaway key rather than your account, so the network sees traffic, not a person.
+
+None of that is absolute, and the [threat model](security/threat-model.md) says exactly where it stops.
+
+## Creators keep the whole price
+
+A channel can charge for entry: a token or NFT to hold, or a subscription at a price and period its owner sets. Each subscription goes straight to the owner. No fee, no revenue share, no Pombo account in between. The payment function is a single transfer to the owner's address, and anyone can read it.
+
+Everything else is free. Joining a public channel, chatting, DMs and file sharing cost nothing, and Pombo has no premium tier and no ads. Actions that write to the blockchain, such as creating a channel, cost a few cents in POL paid to the network.
 
 ## Where to start
 
-| I want to… | Go to |
+| | |
 |---|---|
-| Install Pombo and create an account | [Getting Started → Install](getting-started/install.md) |
-| Understand how it works under the hood | [Core Concepts → Architecture](concepts/architecture.md) |
-| Understand exactly what is (and isn't) private | [Security → Threat model](security/threat-model.md) |
-| Run infrastructure for the network | [Node Operators → Run a push relay](operators/run-a-relay.md) |
+| **Try it** | [Install Pombo](getting-started/install.md), then [first steps](getting-started/first-steps.md) |
+| **Run a channel** | [Managing channels](guides/managing-channels.md) · [Gated and paid channels](concepts/gated-and-paid-channels.md) |
+| **Understand it** | [Architecture](concepts/architecture.md) · [Encryption](concepts/encryption.md) · [Privacy model](concepts/privacy-model.md) |
+| **Check our claims** | [Threat model](security/threat-model.md) |
+| **Run infrastructure** | [Push relay](operators/run-a-relay.md) · [Storage node](operators/run-a-storage-node.md) |
 
 ## Platforms
 
-- **Web app (PWA)** — [app.pombo.cc](https://app.pombo.cc). Works in any modern browser and can be installed as an app.
-- **Android** — a native Kotlin/Compose UI over the same protocol stack as the web app, wire-compatible. See [Install](getting-started/install.md).
+- **Web (PWA)** at [app.pombo.cc](https://app.pombo.cc), installable from any modern browser.
+- **Android**, a native app speaking the same protocol, so the two interoperate exactly.
 
 ## Links
 
 - Website: [pombo.cc](https://pombo.cc)
 - App: [app.pombo.cc](https://app.pombo.cc)
-- Source code: [github.com/Ocnrb/Pombo](https://github.com/Ocnrb/Pombo)
+- Source code: [github.com/Pombo-app/Pombo](https://github.com/Pombo-app/Pombo)
 - X: [@app_Pombo](https://x.com/app_Pombo)

@@ -19,7 +19,7 @@ That's Raspberry Pi territory. A home PC, a free-tier cloud VM, or the cheapest 
 ## Setup
 
 ```bash
-git clone https://github.com/Ocnrb/Pombo-push
+git clone https://github.com/Pombo-app/Pombo-push
 cd Pombo-push
 npm install
 cp .env.example .env

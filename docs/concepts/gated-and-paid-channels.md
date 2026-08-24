@@ -75,6 +75,6 @@ Closed channels are never listed, whatever the owner picks. The general rules fo
 ## Honest limits
 
 - **Revocation is not instant.** Encryption keys rotate on a weekly cadence, so someone who sells the gate asset or lets a subscription lapse can still read new messages until the next rotation — and rotations happen only while the channel's admin is online. The contract cuts them off immediately for everything the *contract* controls; the key layer catches up afterwards.
-- **The contracts have not been audited.** They are open source (see [pombo-contracts](https://github.com/Ocnrb/pombo-contracts)) and deliberately small, but no third party has reviewed them.
+- **The contracts have not been audited.** They are open source (see [pombo-contracts](https://github.com/Pombo-app/pombo-contracts)) and deliberately small, but no third party has reviewed them.
 - **Paying is public.** Subscriptions, memberships and bans are contract state on a public blockchain: anyone can see which address pays for which channel, and when.
 - **Authorship is not hidden.** The contract is the publisher on the wire, but your account's signature travels beside it in the clear, and it is what the network checks — so it cannot be encrypted, and anyone can recover who wrote what. Content stays private to members; participation does not. The reasoning is in the [privacy model](privacy-model.md#contract-backed-channels).
