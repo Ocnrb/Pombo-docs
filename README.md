@@ -27,5 +27,5 @@ Pushes to `main` are built and deployed automatically to docs.pombo.cc by the Gi
 ## Links
 
 - App: [app.pombo.cc](https://app.pombo.cc)
-- Source: [github.com/Ocnrb/Pombo](https://github.com/Ocnrb/Pombo)
+- Source: [github.com/Pombo-app/Pombo](https://github.com/Pombo-app/Pombo)
 - X: [@app_Pombo](https://x.com/app_Pombo)

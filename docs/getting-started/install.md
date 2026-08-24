@@ -21,7 +21,7 @@ Installing gives you an app icon, a full-screen UI, and — on iOS — the abili
 
 ## Android app
 
-An Android app — a native Kotlin/Jetpack Compose UI running the same protocol stack as the web app — is available from the [GitHub repository](https://github.com/Ocnrb/Pombo-Android). It is wire-compatible with the web app — same account format, same channels, same encryption — and uses Firebase Cloud Messaging for push notifications.
+An Android app — a native Kotlin/Jetpack Compose UI running the same protocol stack as the web app — is available from the [GitHub repository](https://github.com/Pombo-app/Pombo-Android). It is wire-compatible with the web app — same account format, same channels, same encryption — and uses Firebase Cloud Messaging for push notifications.
 
 Requirements: Android 8.0 (API 26) or newer.
 

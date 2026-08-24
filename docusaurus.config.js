@@ -18,7 +18,7 @@ const config = {
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'Ocnrb',
+  organizationName: 'Pombo-app',
   projectName: 'pombo-docs',
 
   onBrokenLinks: 'throw',
@@ -87,7 +87,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/Ocnrb/Pombo',
+            href: 'https://github.com/Pombo-app/Pombo',
             label: 'GitHub',
             position: 'right',
           },
@@ -106,7 +106,7 @@ const config = {
           {
             title: 'Community',
             items: [
-              {label: 'GitHub', href: 'https://github.com/Ocnrb/Pombo'},
+              {label: 'GitHub', href: 'https://github.com/Pombo-app/Pombo'},
               {label: 'X', href: 'https://x.com/app_Pombo'},
             ],
           },
