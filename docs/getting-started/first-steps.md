@@ -10,15 +10,15 @@ description: Join a channel, send your first message, and DM someone.
 
 Channels are Pombo's group spaces. You can find them two ways:
 
-- **Explore**, the in-app discovery view listing public channels.
+- **Explore**, the in-app discovery view listing open channels.
 - **Direct link**: any channel can be shared as a URL. Opening the link takes you straight there. Try the official Pombo channel: [app.pombo.cc/#/channel/…](https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/9862eb7bd898f338-1)
 
 There are five kinds of channels; the app shows which is which:
 
 | Type | Who can read | Who can write |
 |---|---|---|
-| **Public** | Everyone | Everyone |
-| **Password** | Anyone with the shared password | Anyone with the password |
+| **Open** | Everyone | Everyone |
+| **Protected** | Anyone with the shared password | Anyone with the password |
 | **Closed** | Addresses the owner allowlists | The same |
 | **Gated** | Anyone holding the required token or NFT | The same |
 | **Paid** | Anyone with an active subscription | The same |

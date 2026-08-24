@@ -15,7 +15,7 @@ When a channel (or DM inbox) is created, its stored streams are assigned to one 
 - **Default provider:** Pombo operates a storage cluster (two servers with a replicated Cassandra database behind a single node identity) that channels use out of the box.
 - **Custom storage nodes:** channel owners can point a channel (or their own DM inbox) at any Streamr storage node instead. The node must be web-reachable: HTTPS with a real hostname, since browsers cannot fetch plain-HTTP or raw-IP endpoints. See [Run a storage node](../operators/run-a-storage-node.md).
 
-What storage nodes hold is exactly what the network carried: ciphertext for password channels, contract-backed channels and DMs, signed plaintext for public channels. Storage operators are infrastructure, not custodians — they cannot read encrypted content.
+What storage nodes hold is exactly what the network carried: ciphertext for protected channels, contract-backed channels and DMs, signed plaintext for open channels. Storage operators are infrastructure, not custodians — they cannot read encrypted content.
 
 Closed, gated and paid channels store one thing more: their keys stream, which is what lets someone join and receive the channel's encryption key without another member being online at that exact moment.
 

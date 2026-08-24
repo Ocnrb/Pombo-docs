@@ -14,7 +14,7 @@ Two things a channel's *creator* can charge for, if they choose: a **gated** cha
 
 ### Can Pombo (the developers) read my messages?
 
-No — and not as a promise, but structurally. There is no server where messages pass in the clear: DMs and password channels are encrypted on your device, and the infrastructure (Streamr nodes, storage nodes) only ever handles ciphertext. Public channels are readable by everyone *including* us, because they're public.
+No — and not as a promise, but structurally. There is no server where messages pass in the clear: DMs and protected channels are encrypted on your device, and the infrastructure (Streamr nodes, storage nodes) only ever handles ciphertext. Open channels are readable by everyone *including* us, because they're public.
 
 ### What happens if pombo.cc disappears?
 
@@ -30,11 +30,11 @@ Group conversation in Pombo is a **channel**. There is no separate "group DM" pr
 
 ### Someone I banned came back with a new account. Why?
 
-Because accounts are free and unlinked, a ban in a public or password channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **closed, gated or paid channel**, where membership is contract state you control and the network refuses messages from anyone the contract won't vouch for.
+Because accounts are free and unlinked, a ban in an open or protected channel can't stop a determined user — this is a structural property of permissionless systems, and Pombo is honest about it rather than pretending otherwise. If you need enforceable access control, use a **closed, gated or paid channel**, where membership is contract state you control and the network refuses messages from anyone the contract won't vouch for.
 
 ### Is Pombo anonymous?
 
-Pombo is **pseudonymous with strong wire privacy**, not an anonymity network. Your real account is hidden from network observers, but public channel participation is publicly attributable to your account, and your IP is visible to peers like in any P2P app. For separation of contexts, use multiple accounts; for IP privacy, use a VPN or Tor. Full picture: [Threat model](../security/threat-model.md).
+Pombo is **pseudonymous with strong wire privacy**, not an anonymity network. Your real account is hidden from network observers, but open channel participation is publicly attributable to your account, and your IP is visible to peers like in any P2P app. For separation of contexts, use multiple accounts; for IP privacy, use a VPN or Tor. Full picture: [Threat model](../security/threat-model.md).
 
 ### How is this different from Signal? From Matrix? From Farcaster?
 
