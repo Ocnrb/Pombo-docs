@@ -30,13 +30,13 @@ Pombo has no message backend — conversations never pass through a Pombo server
 - **Transport — Streamr Network.** Messages are published to *streams* (topics) and propagate peer-to-peer between subscribers. No relay server sits in the middle of your conversations.
 - **Ownership — Polygon PoS.** Streams are registered on-chain in the Streamr registry contracts. The record of who owns a channel and who may publish or subscribe to it is public blockchain state — not a row in someone's database. On-chain writes (creating a channel, granting membership) cost a small fee in POL; everything else is free.
 - **Persistence — storage nodes.** Streamr nodes running the storage plugin retain stream history, so messages reach people who were offline. Channel owners choose the storage node and the retention period. See [Storage and persistence](storage-and-persistence.md).
-- **Cryptography — your device.** Keys are generated and used locally. DM encryption, password-channel encryption and message signing all happen client-side before anything is published. Two deliberate choices are worth knowing: the Streamr SDK's own encryption layer is **disabled** — all confidentiality is applied at the app layer — and channel messages are published under a per-channel throwaway key carrying a signed proof of the real account inside the payload (in contract-backed channels, the publisher is the membership contract instead; see [Privacy model](privacy-model.md)).
+- **Cryptography — your device.** Keys are generated and used locally. DM encryption, protected-channel encryption and message signing all happen client-side before anything is published. Two deliberate choices are worth knowing: the Streamr SDK's own encryption layer is **disabled** — all confidentiality is applied at the app layer — and channel messages are published under a per-channel throwaway key carrying a signed proof of the real account inside the payload (in contract-backed channels, the publisher is the membership contract instead; see [Privacy model](privacy-model.md)).
 
 Beyond these layers, the client talks to a small set of auxiliary services — public RPC endpoints, The Graph, the push relay, the Explore curation manifest — none of which handle message content. The full list and what each one sees is in the [threat model](../security/threat-model.md).
 
 ## Anatomy of a channel
 
-Every channel is a set of Streamr streams under the creator's address — three for public and password channels, four when membership is contract-backed:
+Every channel is a set of Streamr streams under the creator's address — three for open and protected channels, four when membership is contract-backed:
 
 | Stream | Stored? | Partitions | Purpose |
 |---|---|---|---|
@@ -52,18 +52,18 @@ The keys stream is stored on purpose: it is what makes joining a private channel
 The full picture per channel type — on-chain metadata, permissions, partitions, and where encryption applies (click to zoom):
 
 <Tabs>
-<TabItem value="public" label="Public channel">
+<TabItem value="open" label="Open channel">
 
-![Public channel — multiple stream architecture: three streams with their on-chain metadata, permissions and partition layout](../assets/diagrams/public-channel.webp)
+![Open channel — multiple stream architecture: three streams with their on-chain metadata, permissions and partition layout](../assets/diagrams/open-channel.webp)
 
 *Content flows unencrypted; the four metadata variants cover visible/hidden and read-only combinations.*
 
 </TabItem>
-<TabItem value="password" label="Password channel">
+<TabItem value="protected" label="Protected channel">
 
-![Password channel — multiple stream architecture: identical stream layout, with every partition encrypted by a key derived from the shared password](../assets/diagrams/password-channel.webp)
+![Protected channel — multiple stream architecture: identical stream layout, with every partition encrypted by a key derived from the shared password](../assets/diagrams/protected-channel.webp)
 
-*Same layout as a public channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
+*Same layout as an open channel, but every partition's content passes through AES-256-GCM with a PBKDF2-derived key (green path); the admin stream gains the password-challenge partition.*
 
 </TabItem>
 <TabItem value="native" label="Closed, gated and paid channels">

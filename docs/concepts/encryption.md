@@ -1,7 +1,7 @@
 ---
 id: encryption
 title: Encryption
-description: How Pombo encrypts DMs (ECDH + sealed sender), password channels, epoch-keyed private channels, and media.
+description: How Pombo encrypts DMs (ECDH + sealed sender), protected channels, epoch-keyed private channels, and media.
 ---
 
 # Encryption
@@ -26,7 +26,7 @@ What this means concretely: a network observer watching your inbox can see *that
 
 Because encryption is pure key-derivation (no session handshake), the recipient can be offline for days: the sealed message waits in their stored inbox and decrypts whenever they return. Images and files sent in DMs are sealed the same way, with a fresh ephemeral key per transfer.
 
-## Password channels
+## Protected channels
 
 Password-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.
 
@@ -58,9 +58,9 @@ How much history a new member receives depends on the channel:
 
 What the epoch key protects is the *content*. It does not conceal who wrote each message: authorship travels outside the encryption in these channels, necessarily — see [Privacy model](privacy-model.md#contract-backed-channels).
 
-## Public channels
+## Open channels
 
-Public channels are **intentionally not encrypted** — they are open rooms, and their content is signed plaintext. What Pombo protects there is different: your network-level identity, via ephemeral publisher keys (see [Privacy model](privacy-model.md)).
+Open channels are **intentionally not encrypted** — they are public rooms, and their content is signed plaintext. What Pombo protects there is different: your network-level identity, via ephemeral publisher keys (see [Privacy model](privacy-model.md)).
 
 ## What is protected locally
 

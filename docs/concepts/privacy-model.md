@@ -16,13 +16,13 @@ Your real identity travels as a **publisher proof** — a signature by your acco
 
 | Context | Publisher on the wire | Where the identity proof lives | Who learns your real account |
 |---|---|---|---|
-| Public channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
-| Password channel | Ephemeral | Inside the AES envelope | Channel members only |
+| Open channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
+| Protected channel | Ephemeral | Inside the AES envelope | Channel members only |
 | Direct message | Ephemeral (sealed sender) | Inside the ECDH envelope | The recipient only |
 | Closed / gated / paid channel | The channel's membership contract | Your account's signature on the message itself | Anyone |
 | Read-only channel (owner posts) | Your real account | — (not needed) | Anyone |
 
-So in a **password channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **public channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
+So in a **protected channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **open channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
 
 ## Contract-backed channels
 
@@ -53,7 +53,7 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 
 Honest limits, in brief — the full list is in the [threat model](../security/threat-model.md):
 
-- Public channels are public: anyone can recover your account from the proof and correlate your activity across public channels.
+- Open channels are public: anyone can recover your account from the proof and correlate your activity across open channels.
 - Contract-backed channels do not hide authorship — [see above](#contract-backed-channels).
 - Read-only channels and moderation actions you perform as owner publish under your **real wallet**, as does your ownership of the channel itself.
 - A channel creator's address is embedded in the channel ID forever.

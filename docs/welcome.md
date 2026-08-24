@@ -31,7 +31,7 @@ That also makes this interface replaceable. Any client speaking the same protoco
 
 ## Encrypted before it leaves your device
 
-All cryptography runs locally, on web and Android alike, before anything is published. Direct messages are end-to-end encrypted and sealed, so only the recipient learns who wrote. In public and password channels you publish under a throwaway key rather than your account, so the network sees traffic, not a person.
+All cryptography runs locally, on web and Android alike, before anything is published. Direct messages are end-to-end encrypted and sealed, so only the recipient learns who wrote. In open and protected channels you publish under a throwaway key rather than your account, so the network sees traffic, not a person.
 
 None of that is absolute, and the [threat model](security/threat-model.md) says exactly where it stops.
 
@@ -39,7 +39,7 @@ None of that is absolute, and the [threat model](security/threat-model.md) says 
 
 A channel can charge for entry: a token or NFT to hold, or a subscription at a price and period its owner sets. Each subscription goes straight to the owner. No fee, no revenue share, no Pombo account in between. The payment function is a single transfer to the owner's address, and anyone can read it.
 
-Everything else is free. Joining a public channel, chatting, DMs and file sharing cost nothing, and Pombo has no premium tier and no ads. Actions that write to the blockchain, such as creating a channel, cost a few cents in POL paid to the network.
+Everything else is free. Joining an open channel, chatting, DMs and file sharing cost nothing, and Pombo has no premium tier and no ads. Actions that write to the blockchain, such as creating a channel, cost a few cents in POL paid to the network.
 
 ## Where to start
 
