@@ -7,7 +7,7 @@ description: "Pombo is an open-source, permissionless messaging and social media
 
 # What is Pombo?
 
-**Pombo is an open-source messaging and social media app**: group channels and private direct messages, running without a company in the middle of any of it.
+**Pombo is an open-source, peer-to-peer (p2p) messaging and social media app**: group channels and private direct messages, running without a company in the middle of any of it.
 
 What follows is a consequence of how it is built, not a policy anyone maintains.
 

@@ -55,6 +55,7 @@ const sidebars = {
       collapsed: true,
       items: [
         'security/threat-model',
+        {type: 'link', label: 'Privacy policy', href: '/legal/privacy-policy'},
       ],
     },
     {
