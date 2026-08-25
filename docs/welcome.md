@@ -2,7 +2,7 @@
 id: welcome
 title: What is Pombo?
 slug: /
-description: "Pombo is an open-source, permissionless messaging and social media app: peer-to-peer, with no accounts to approve, no servers in the middle, and channels whose creators keep everything they charge."
+description: "Pombo is an open-source, permissionless messaging and social media app: peer-to-peer, with no accounts to approve, no server that can read your messages, and channels whose creators keep everything they charge."
 ---
 
 # What is Pombo?
@@ -17,9 +17,9 @@ Your account is a cryptographic keypair generated on your device the first time 
 
 Creating a channel is the same: you register it and it is yours. It becomes your property. Accounts are free and instant, so keeping separate identities for separate parts of your life costs nothing.
 
-## No servers in the middle
+## Anyone can run the infrastructure
 
-Messages travel peer-to-peer across the [Streamr Network](https://streamr.network). There is no Pombo backend they pass through, so there is nothing to hack, subpoena or switch off.
+Messages travel peer-to-peer across the [Streamr Network](https://streamr.network). No server sits between you and the person you are talking to, and the infrastructure that carries and keeps your messages only ever handles ciphertext.
 
 History is kept by storage nodes. Pombo runs a default cluster, but a channel's owner can point it at a different node, and [anyone can run one](operators/run-a-storage-node.md). The same is true of the [relay](operators/run-a-relay.md) that delivers push notifications.
 

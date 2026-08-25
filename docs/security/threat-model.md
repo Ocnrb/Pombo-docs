@@ -19,7 +19,7 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 
 ## Trusted or centralized components
 
-Pombo has no backend, but it is not free of third parties. Today you are trusting:
+Pombo has no backend: no server implements the app, and every piece of infrastructure it touches can be swapped for someone else's. That does not make it free of third parties. Today you are trusting:
 
 | Component | What it could learn or do |
 |---|---|
