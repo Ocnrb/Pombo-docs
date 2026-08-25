@@ -25,10 +25,14 @@ same thing, this one governs.
 This policy covers the Pombo web application at `app.pombo.cc`, the Pombo
 Android application, and the websites `pombo.cc` and `docs.pombo.cc`.
 
-It does not cover the independent infrastructure Pombo connects to. The Streamr
-Network, the Polygon blockchain, storage node operators, and RPC providers are
-operated by third parties under their own terms. Where using Pombo causes data
-to reach them, this policy says so.
+Pombo is a client for open infrastructure that it does not own. The Streamr
+Network, the Polygon blockchain, storage nodes and RPC providers are run by
+whoever chooses to run them, under their own terms, and this policy does not
+cover them. Where using Pombo causes data to reach them, it says so.
+
+The project does run some of that infrastructure itself, as a service rather
+than as part of the application: a storage cluster and a push relay. Section 9
+lists them, and they are covered by this policy like anything else we operate.
 
 "Pombo", "we" and "us" in this document mean the project that publishes the
 applications and websites listed above. Pombo is an open source project rather
@@ -70,16 +74,28 @@ encrypted end to end and those participants cannot read it, but they can observe
 the IP address you connect from, as is inherent to any direct connection.
 
 If your IP address must not be visible to other participants, use Pombo through
-a VPN or a network that does not identify you. We do not operate a relay that
-would hide it.
+a VPN or a network that does not identify you. There is no proxy layer between
+you and the network that would hide it for you.
 
 ### 4.2 Storage nodes hold encrypted history
 
-Channels may retain history on storage nodes so that messages are available
-after they are sent. What is stored is encrypted and the operator cannot read
-it. The operator can see stream identifiers, message sizes, and timing.
+Pombo is a client for open infrastructure. Message history is kept by Streamr
+storage nodes, which anyone can run: they are not part of the application, and
+the application has no privileged relationship with any of them.
 
-Retention is a property of the channel, chosen by the channel owner, not by us.
+**We operate one of those nodes, and it is the one a channel uses unless its
+owner picks another.** It is a two-server cluster, offered because a network
+with no reachable storage is not much use to anyone, and it is a service we run
+rather than a component of the app. Channel creation shows the choice, names the
+node, and explains how to point a channel at your own cluster or a third
+party's instead.
+
+Whichever node a channel uses, what is stored is encrypted and its operator
+cannot read it. What that operator does see is stream identifiers, message
+sizes, and timing. When the node is ours, we see exactly that and nothing more.
+
+How long history is kept is set by the channel's owner, between one and 365
+days, and it is enforced by the node rather than by us.
 
 ### 4.3 The blockchain is public and permanent
 
@@ -198,7 +214,7 @@ and cannot vouch for it.
 | Party | What it receives | When |
 | --- | --- | --- |
 | Other network participants | Your IP address | Whenever the app is connected |
-| Storage node operators | Encrypted content, stream ids, sizes, timing | For channels with retention |
+| The storage node a channel uses, ours by default | Encrypted content, stream ids, sizes, timing | For channels with retention |
 | The Polygon blockchain | Your address and transactions, permanently and publicly | On-chain actions |
 | The Graph | Your IP address and channel queries | Browsing and opening channels |
 | RPC providers | Your IP address and the addresses you query | Gate checks, ENS, transactions |
@@ -209,13 +225,16 @@ and cannot vouch for it.
 
 ## 7. Retention, and what we cannot delete
 
-We hold nothing centrally, so there is nothing for us to retain about you.
+There is no central store of your messages, your contacts or your identity. What
+the project does hold is listed in section 9, and it is small.
 
-What exists elsewhere is outside our control, and we want to be exact rather
-than reassuring:
+For the rest we want to be exact rather than reassuring:
 
-- Channel history on storage nodes remains until the channel's retention window
-  expires. It is encrypted, and we cannot remove it early.
+- Channel history stays on the storage node the channel uses until its retention
+  window expires, then the node purges it. It is encrypted throughout. On our
+  own cluster we can see that a channel's data is there and when it will go, and
+  we do not remove it early, because doing so would break the guarantee the
+  channel owner chose. On any other node we have no access at all.
 - Blockchain transactions are permanent. They cannot be deleted by anyone.
 - Messages already delivered to other people's devices are theirs. We have no
   mechanism to reach into them.
@@ -245,19 +264,26 @@ almost everything is held by you: your messages and keys are on your own device,
 and you can export, inspect and destroy them at any time without asking us.
 
 For the parts we do not hold, we cannot act on your behalf. We cannot delete
-blockchain transactions, remove data from storage nodes we do not operate, or
+blockchain transactions, reach into a storage node run by someone else, or
 retrieve messages from other people's devices. Saying otherwise would be a
 promise we could not keep.
 
 Where the project itself operates infrastructure, we take responsibility for it.
-There are three places, and they are the only ones:
+There are four places, and they are the only ones:
 
+- **The storage cluster** described in section 4.2, holding the encrypted
+  history of every channel that uses it, for as long as that channel's retention
+  window says. This is the largest of the four by far.
 - **The push relay**, which stores the device push tokens described in section
   4.6, for as long as notifications stay enabled.
 - **The websites** listed in section 1, whose hosting keeps access logs.
 - **This mailbox.** Writing to the address in section 11 means we hold your
   message and whatever address you sent it from, for as long as it takes to
   answer you and keep a record of having done so.
+
+None of these is a component of the application. They are services the project
+runs on open infrastructure, and each of them can be replaced by someone else's
+or by your own.
 
 If you want any of that removed, ask. For the push token, turning notifications
 off in the app is faster than writing to us.
