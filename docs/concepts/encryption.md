@@ -1,12 +1,14 @@
 ---
 id: encryption
 title: Encryption
-description: How Pombo encrypts DMs (ECDH + sealed sender), protected channels, epoch-keyed private channels, and media.
+description: How Pombo encrypts DMs (ECDH + sealed sender), protected channels, epoch-keyed private channels, and local state.
 ---
 
 # Encryption
 
 All cryptography in Pombo runs **on your device**. The web app uses the browser's built-in WebCrypto for symmetric operations and audited Ethereum libraries for elliptic-curve operations; the Android app uses the platform's native crypto for symmetric operations and runs the same Ethereum library code for elliptic-curve operations, guaranteeing byte-for-byte compatibility between the two. Private keys never leave your device; the only key material ever published is your *public* key, attached to your DM inbox so others can encrypt to you.
+
+This page covers what encryption protects: the *content*. The separate question — who can see that it was **you** — is the subject of the [privacy model](privacy-model.md).
 
 ## Direct messages: end-to-end, sealed sender
 
@@ -42,7 +44,7 @@ Channels differ: their epoch keys do rotate, see [Rotation and history](#rotatio
 
 ## Protected channels
 
-Password-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.
+Protected-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.
 
 ## Closed, gated and paid channels
 

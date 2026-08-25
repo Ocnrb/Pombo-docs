@@ -33,7 +33,7 @@ On-chain actions need a little POL for gas on Polygon PoS:
 
 ## I forgot my password / lost my device
 
-If you have a **backup file**, import it and enter its passphrase — everything comes back. If you don't, the account cannot be recovered by anyone, including us; that's the flip side of no one else holding your keys. Create a new account and [back it up this time](../guides/backup-and-recovery.md).
+If you have a **backup file**, import it and enter your account password — everything comes back. If you don't, the account cannot be recovered by anyone, including us; that's the flip side of no one else holding your keys. Create a new account and [back it up this time](../guides/backup-and-recovery.md).
 
 ## The app seems out of sync between my devices
 

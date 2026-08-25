@@ -46,7 +46,22 @@ const config = {
     ],
   ],
 
-  plugins: ['docusaurus-plugin-image-zoom'],
+  plugins: [
+    'docusaurus-plugin-image-zoom',
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        // Concept pages were reorganized; keep the published URLs alive.
+        redirects: [
+          {from: '/concepts/architecture', to: '/concepts/client'},
+          {from: '/concepts/channels-and-ownership', to: '/concepts/channel-access'},
+          {from: '/concepts/gated-and-paid-channels', to: '/concepts/channel-access'},
+          {from: '/concepts/storage-and-persistence', to: '/concepts/storage-and-sync'},
+          {from: '/guides/notifications', to: '/concepts/notifications'},
+        ],
+      },
+    ],
+  ],
 
   themes: [
     [

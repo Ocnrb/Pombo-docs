@@ -11,7 +11,7 @@ Privacy tools earn trust by being precise about their limits. This page is the h
 ## What Pombo protects
 
 - **DM content and sender identity.** DMs are end-to-end encrypted (ECDH + AES-256-GCM) with sealed sender: no party except the recipient — not the network, not storage nodes, not relays — learns the content *or who sent it*.
-- **Password-channel content.** Encrypted client-side; the network carries ciphertext published by throwaway keys.
+- **Protected-channel content.** Encrypted client-side; the network carries ciphertext published by throwaway keys.
 - **Your account on the wire.** In open and protected channels and DMs, message traffic is published under an ephemeral session key, not your wallet. Contract-backed channels are the exception: the membership contract is the publisher, but your account's signature travels with each message and identifies you — as does publishing a read-only channel or a moderation action. See visible metadata below.
 - **Private-channel content.** Closed, gated and paid channels are encrypted under a channel key that only members obtain, rotated over time; the network and storage nodes carry ciphertext.
 - **Your data at rest.** Keys and app state are encrypted on-device and isolated per account, on both web and Android (in the web app, a few low-sensitivity preferences remain in plain browser storage).
@@ -43,7 +43,7 @@ The accepted risk follows: if attacker code ever does run in the app's origin �
 
 Things an observer can see, some inherent to the design:
 
-- **Open channels are public.** Anyone implementing the message format can recover the real account behind each message and correlate a person's activity **across open channels**. The countermeasure is using separate accounts, not a setting.
+- **Open channels are public.** Anyone implementing the message format can recover the real account behind each message and correlate a person's activity **across open channels**; even your display name travels in cleartext, in the channel's presence and typing signals. The countermeasure is using separate accounts, not a setting.
 - **Channel creators are permanent public record** — the creator's address is embedded in the channel ID.
 - **Membership of contract-backed channels is on-chain** and queryable by anyone: allowlists, bans, and — in paid channels — who subscribed and until when. Paying for a channel is a public act.
 - **Moderation is visible.** In open channels the moderation state (ban lists, pins) is world-readable; in protected channels it is encrypted for members; in contract-backed channels it is member-only. In every type, though, moderation actions are published by the **owner's real wallet**, exposing the owner and the timing of each action.
@@ -55,7 +55,6 @@ Things an observer can see, some inherent to the design:
   For a threat model that includes traffic analysis, this is the residual to weigh: a watcher who checks an inbox periodically learns your messaging rhythm without ever learning a single contact.
 - **Reading history reveals you to the node you read from.** Opening a channel fetches its retained messages over HTTPS from the storage node it uses, so that operator sees your address and which channels you open, whether the node is ours or a third party's. The content stays sealed; the pattern does not.
 - **A DM you send is retained under the recipient's settings, not yours.** It lives in their inbox, on the node they chose, for as long as they chose. This is the one exposure you cannot fix from your side.
-- **Display names travel in cleartext** in open-channel presence and typing signals.
 - **IP addresses are visible to network peers**, as in any P2P system, and timing correlation is possible for a well-positioned observer. Today, pair Pombo with a VPN or Tor if your threat model includes network observers; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
 
 ## Shrinking what a seizure would find

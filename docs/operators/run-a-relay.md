@@ -6,7 +6,7 @@ description: Run a Pombo push relay — the easiest way to contribute infrastruc
 
 # Run a push relay
 
-The push relay bridges Streamr wake signals to Web Push (FCM/APNs). It's deliberately **blind** — it never sees message content or user identities (see [Notifications](../guides/notifications.md)) — and deliberately **cheap to run**. This is the easiest piece of Pombo infrastructure to operate.
+The push relay bridges Streamr wake signals to Web Push (FCM/APNs). It's deliberately **blind** — it never sees message content or user identities (see [Push notifications](../concepts/notifications.md)) — and deliberately **cheap to run**. This is the easiest piece of Pombo infrastructure to operate.
 
 ## Requirements
 

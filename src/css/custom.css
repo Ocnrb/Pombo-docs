@@ -68,3 +68,10 @@
 [data-theme='dark'] .table-of-contents__link--active {
   color: var(--ifm-color-primary);
 }
+
+/* Matrix tables: the category column reads like the header row
+   (thead's background is --ifm-table-stripe-background in Infima). */
+.matrix-table table td:first-child {
+  background-color: var(--ifm-table-stripe-background);
+  font-weight: var(--ifm-table-head-font-weight);
+}
