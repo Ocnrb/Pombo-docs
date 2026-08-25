@@ -46,9 +46,9 @@ Everything else is free. Joining an open channel, chatting, DMs and file sharing
 | | |
 |---|---|
 | **Try it** | [Install Pombo](getting-started/install.md), then [first steps](getting-started/first-steps.md) |
-| **Run a channel** | [Managing channels](guides/managing-channels.md) · [Gated and paid channels](concepts/gated-and-paid-channels.md) |
-| **Understand it** | [Architecture](concepts/architecture.md) · [Encryption](concepts/encryption.md) · [Privacy model](concepts/privacy-model.md) |
-| **Check our claims** | [Threat model](security/threat-model.md) |
+| **Run a channel** | [Managing channels](guides/managing-channels.md) · [Channel access](concepts/channel-access.md) |
+| **Understand it** | [Client](concepts/client.md) · [Encryption](concepts/encryption.md) · [Privacy model](concepts/privacy-model.md) |
+| **Check our claims** | [Privacy at a glance](security/privacy-at-a-glance.md) · [Threat model](security/threat-model.md) |
 | **Run infrastructure** | [Push relay](operators/run-a-relay.md) · [Storage node](operators/run-a-storage-node.md) |
 
 ## Platforms

@@ -1,12 +1,12 @@
 ---
 id: notifications
 title: Notifications
-description: How Pombo delivers push notifications without learning who you are — wake signals, k-anonymity, and a blind relay.
+description: How Pombo delivers push notifications without learning who you are — wake signals, k-anonymity, a blind relay, and the per-platform quirks.
 ---
 
 # Notifications
 
-Push notifications are the hardest feature to do privately: the platforms (Google FCM, Apple APNs) sit in the delivery path by construction. Pombo's design goal is that **no party in the push path — relay, Google, or Apple — learns who is messaging whom, or what was said.**
+Pombo can wake your device when a channel you follow or your DM inbox gets a message. Push is the hardest feature to do privately: the platforms (Google FCM, Apple APNs) sit in the delivery path by construction. Pombo's design goal is that **no party in the push path — relay, Google, or Apple — learns who is messaging whom, or what was said.**
 
 ## How it works
 
@@ -14,7 +14,7 @@ Push notifications are the hardest feature to do privately: the platforms (Googl
 2. A **relay** (an open-source, community-runnable server) listens for wake signals, checks the proof-of-work, and fires a Web Push to *every* device registered under that tag.
 3. Your device wakes and checks whether there's actually a message for you — the service worker queries the channel's storage node over HTTPS. Only then does a notification render; message content never travels through the push system.
 
-Push is **opt-in per channel**; your own DM inbox is registered automatically, registrations refresh every 6 hours, and the proof-of-work is bound to a 10-second epoch so wake signals can't be replayed. The registration itself — the one message that carries your push endpoint — is **encrypted to the relay's public key** (published in the push stream's on-chain metadata and verified against the relay's known address before use), and is sent under a throwaway key: nothing on the stream links it to an account, and only the relay can read the endpoint inside.
+Push is opt-in per channel; your own DM inbox is registered automatically. Registrations refresh every 6 hours, and the proof-of-work is bound to a 10-second epoch so wake signals can't be replayed. The registration itself — the one message that carries your push endpoint — is **encrypted to the relay's public key** (published in the push stream's on-chain metadata and verified against the relay's known address before use), and is sent under a throwaway key: nothing on the stream links it to an account, and only the relay can read the endpoint inside.
 
 The full flow, with the k-anonymity collision made visible — Alice and Charlie share tag `0x75` for different channels, so both devices wake and each verifies locally; Bob's tag doesn't match, so his device never wakes (click to zoom):
 
@@ -32,13 +32,15 @@ The 1-byte tag is the key trick: with only 256 possible tags, many users share e
 | Google / Apple | That your device runs Pombo | Content, sender, which channels/contacts you have |
 | Network observer | Wake-signal timing (see caveat below) | Content, sender, recipient beyond the tag bucket |
 
-The honest residuals: platform push tokens inherently tell Google/Apple *that* you use Pombo. The relay stores your push token keyed to your tags, so it can link the notifications one device receives over time (though not who that device belongs to). The wake-verification step means the storage node sees which stream your device polls, and when. Registrations are encrypted to the relay's key, but wake signals travel unencrypted by design (they must stay cheap to send and carry nothing sensitive) — the push stream's subscribe permission is a network-level restriction, so a determined observer running a modified node could still watch wake-signal timing. The design assumes this: even a full view of the stream yields only tag buckets and timestamps. Small user bases also mean smaller anonymity sets.
+The honest residuals: platform push tokens inherently tell Google/Apple *that* you use Pombo. The relay stores your push token keyed to your tags, so it can link the notifications one device receives over time (though not who that device belongs to) — what it holds and for how long is stated in the [privacy policy](/legal/privacy-policy). The wake-verification step means the storage node sees which stream your device polls, and when. Registrations are encrypted to the relay's key, but wake signals travel unencrypted by design (they must stay cheap to send and carry nothing sensitive) — the push stream's subscribe permission is a network-level restriction, so a determined observer running a modified node could still watch wake-signal timing. The design assumes this: even a full view of the stream yields only tag buckets and timestamps. Small user bases also mean smaller anonymity sets.
 
 ## Platform notes
 
 - **iOS**: notifications require the PWA to be **installed to the Home Screen** (iOS 16.4+). Safari-tab usage won't receive push.
 - **Android app**: uses Firebase Cloud Messaging. Battery optimizations (Doze, Adaptive Battery) can delay delivery by minutes — exempting Pombo from battery optimization helps.
 - **Relay availability**: today one community relay serves the network; if it's down, push pauses (messages are unaffected — they're waiting on the network). The relay is open source and anyone can run one — see [Run a push relay](../operators/run-a-relay.md).
+
+Even when everything is set up right, push is best-effort: delivery can lag from seconds to minutes depending on the platform. [Troubleshooting](../help/troubleshooting.md#im-not-receiving-push-notifications) has the checklist.
 
 ## In-app notifications and invites
 

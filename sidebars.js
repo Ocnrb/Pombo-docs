@@ -18,26 +18,45 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Core Concepts',
-      collapsed: false,
+      label: 'Guides',
+      collapsed: true,
       items: [
-        'concepts/architecture',
-        'concepts/channels-and-ownership',
-        'concepts/gated-and-paid-channels',
-        'concepts/encryption',
-        'concepts/privacy-model',
-        'concepts/storage-and-persistence',
+        'guides/direct-messages',
+        'guides/managing-channels',
+        'guides/file-sharing',
+        'guides/backup-and-recovery',
       ],
     },
     {
       type: 'category',
-      label: 'Guides',
+      label: 'How Pombo Works',
+      collapsed: false,
+      items: [
+        {
+          type: 'category',
+          label: 'Architecture',
+          collapsed: false,
+          items: [
+            'concepts/client',
+            'concepts/channel-anatomy',
+            'concepts/storage-and-sync',
+            'concepts/notifications',
+          ],
+        },
+        'concepts/channel-access',
+        'concepts/ownership-and-moderation',
+        'concepts/encryption',
+        'concepts/privacy-model',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Security & Privacy',
       collapsed: true,
       items: [
-        'guides/managing-channels',
-        'guides/file-sharing',
-        'guides/notifications',
-        'guides/backup-and-recovery',
+        'security/privacy-at-a-glance',
+        'security/threat-model',
+        {type: 'link', label: 'Privacy policy', href: '/legal/privacy-policy'},
       ],
     },
     {
@@ -47,15 +66,6 @@ const sidebars = {
       items: [
         'operators/run-a-relay',
         'operators/run-a-storage-node',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Security & Privacy',
-      collapsed: true,
-      items: [
-        'security/threat-model',
-        {type: 'link', label: 'Privacy policy', href: '/legal/privacy-policy'},
       ],
     },
     {

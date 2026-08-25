@@ -1,14 +1,15 @@
 ---
 id: privacy-model
 title: Privacy model
+sidebar_label: Privacy
 description: Ephemeral publisher identities, sealed sender, and what an observer of the network can actually see.
 ---
 
 # Privacy model
 
-Pombo's privacy design has one organizing idea: **your real account should not be visible on the wire unless the context deliberately makes it so.**
+Pombo's privacy design has one organizing idea: **your real account should not be visible on the wire unless the context deliberately makes it so.** [Encryption](encryption.md) protects *what you said*; this page is about who can see *that it was you*, and what an observer of the network actually learns.
 
-This page explains how the protections work. For the separate question of what data leaves your device and who receives it, see the [privacy policy](/legal/privacy-policy).
+For the separate question of what data leaves your device and who receives it, see the [privacy policy](/legal/privacy-policy); for what an attacker can achieve, the [threat model](../security/threat-model.md).
 
 ## Ephemeral publisher identities
 
@@ -20,11 +21,11 @@ Your real identity travels as a **publisher proof** — a signature by your acco
 |---|---|---|---|
 | Open channel | Ephemeral, rotates per join | Plaintext in the message | Anyone who parses the Pombo format |
 | Protected channel | Ephemeral | Inside the AES envelope | Channel members only |
-| Direct message | Ephemeral (sealed sender) | Inside the ECDH envelope | The recipient only |
+| Direct message | Ephemeral ([sealed sender](encryption.md#sealed-sender)) | Inside the ECDH envelope | The recipient only |
 | Closed / gated / paid channel | The channel's membership contract | Your account's signature on the message itself | Anyone |
 | Read-only channel (owner posts) | Your real account | — (not needed) | Anyone |
 
-So in a **protected channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In a **open channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
+So in a **protected channel**, an outside observer sees only ciphertext published by random throwaway addresses. In a **DM**, even your recipient's inbox reveals nothing about you to observers. In an **open channel**, your identity is readable — deliberately, because public rooms are public — but only at the application layer, not as raw wallet signatures on the transport.
 
 ## Contract-backed channels
 
@@ -47,7 +48,7 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 ## Metadata protections that are on by default
 
 - **ENS lookups are decoyed** in the direction that runs constantly: resolving the name behind an address you see mixes the real lookup with decoy addresses, in shuffled order, so RPC operators can't tell which one you cared about. Resolving a name *you typed* — starting a DM, sending an invite — is not covered, and the provider sees exactly the name you asked for.
-- **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for — and both wake signals and registrations are published under a fresh throwaway key. See [Notifications](../guides/notifications.md).
+- **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for — see [Push notifications](notifications.md).
 - **Cross-device sync is sealed to yourself**: state snapshots published to your own inbox are encrypted so only your key can read them, and any payload not authored by your own wallet is rejected.
 - **Network node IDs are not derived from your wallet.**
 

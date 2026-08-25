@@ -28,7 +28,7 @@ For live transfer between online peers: a pull-based swarm over the channel's ep
 
 In closed, gated and paid channels, both transports are sealed with the channel's encryption key — the same one that protects messages — so storage nodes and the network carry ciphertext either way.
 
-One consequence to expect: because those keys rotate, **a member who joins after a rotation cannot open files shared before it**, exactly as they cannot read the messages from that period. In a paid channel that is the rule rather than an edge case — a subscription buys the future. See [Encryption](../concepts/encryption.md#closed-gated-and-paid-channels).
+One consequence to expect: because those keys rotate, **a member who joins after a rotation cannot open files shared before it**, exactly as they cannot read the messages from that period. In a paid channel that is the rule rather than an edge case — a subscription buys the future. See [Encryption](../concepts/encryption.md#rotation-and-history).
 
 ## Managing transfers
 
