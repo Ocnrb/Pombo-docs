@@ -26,6 +26,20 @@ What this means concretely: a network observer watching your inbox can see *that
 
 Because encryption is pure key-derivation (no session handshake), the recipient can be offline for days: the sealed message waits in their stored inbox and decrypts whenever they return. Images and files sent in DMs are sealed the same way, with a fresh ephemeral key per transfer.
 
+### What that costs: no forward secrecy in DMs
+
+There is no ratchet, so message keys are not destroyed after use. What a stolen key opens follows the mailbox model, and it is not symmetric:
+
+- **Your key** opens the DMs you **received**, because those sit in your inbox.
+- **The other person's key** opens the DMs you **sent**, because those sit in theirs.
+- Your device also holds your own copy of what you sent, since you cannot read it back from the network.
+
+So a compromise reaches whatever is still retained, not only what follows it. Signal makes the opposite trade: its ratchet destroys each key immediately, and the price is that history cannot be recovered from the network at all. Pombo needs that recovery, because restoring a backup or opening a second device is exactly the act of deriving those keys again.
+
+Retention is the lever. A short one on your inbox shrinks what your key would expose; it does nothing for what you sent, which lives under someone else's retention. [The threat model](../security/threat-model.md#shrinking-what-a-seizure-would-find) covers how far that goes.
+
+Channels differ: their epoch keys do rotate, see [Rotation and history](#rotation-and-history) below.
+
 ## Protected channels
 
 Password-channel messages are encrypted with **AES-256-GCM** under a key derived from the shared password via **PBKDF2 (310,000 iterations, SHA-256)**. The network and storage nodes carry only ciphertext. Anyone who has the password can derive the key — the secrecy of the channel is exactly the secrecy of its password.

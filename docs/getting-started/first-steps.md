@@ -8,10 +8,13 @@ description: Join a channel, send your first message, and DM someone.
 
 ## Join a channel
 
-Channels are Pombo's group spaces. You can find them two ways:
+Channels are Pombo's group spaces. You can reach them three ways:
 
-- **Explore**, the in-app discovery view listing open channels.
-- **Direct link**: any channel can be shared as a URL. Opening the link takes you straight there. Try the official Pombo channel: [app.pombo.cc/#/channel/…](https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/9862eb7bd898f338-1)
+- **Explore**, the in-app discovery view, which lists the channels their owners chose to list.
+- **A direct link**: any channel can be shared as a URL. Opening it takes you straight there. Try the official Pombo channel: [app.pombo.cc/#/channel/…](https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/9862eb7bd898f338-1)
+- **The channel ID**: paste it into **Join Channel**. Every channel has one, in the form `0x…/name`, and it works whether or not the channel is listed.
+
+Channels are [unlisted by default](../concepts/channels-and-ownership.md#discovery-and-curation), and an unlisted channel never appears in Explore. For those, a link or the channel ID is the only way in.
 
 There are five kinds of channels; the app shows which is which:
 
