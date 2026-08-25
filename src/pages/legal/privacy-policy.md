@@ -177,7 +177,8 @@ its own privacy statement.
 - No analytics, no telemetry, no crash reporting, no usage measurement.
 - No advertising, no advertising identifiers, no tracking across sites or apps.
 - No profiling, and no inference about you from your behaviour.
-- No selling or sharing of personal data, because we hold none to sell.
+- No selling or sharing of personal data. The little we hold is listed in
+  section 9, and none of it is passed on to anyone.
 - No server that holds your messages, your contact list, or your keys.
 
 There is no third-party analytics or tracking code in the Pombo applications.
