@@ -1,7 +1,7 @@
 ---
 id: architecture
 title: Architecture
-description: How Pombo works without servers — Streamr transport, Polygon permissions, storage nodes, client-side crypto.
+description: How Pombo works without a backend — Streamr transport, Polygon permissions, storage nodes, client-side crypto.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 # Architecture
 
-Pombo has no message backend — conversations never pass through a Pombo server. The client sits on top of three decentralized layers — transport, persistence, and ownership — and handles all cryptography itself:
+Pombo has no message backend: no server receives, routes or authorizes your conversations. The client sits on top of three open layers — transport, persistence, and ownership — and handles all cryptography itself:
 
 ```
 ┌─────────────────────────────────────────────┐
