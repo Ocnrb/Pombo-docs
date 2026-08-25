@@ -8,6 +8,8 @@ description: Ephemeral publisher identities, sealed sender, and what an observer
 
 Pombo's privacy design has one organizing idea: **your real account should not be visible on the wire unless the context deliberately makes it so.**
 
+This page explains how the protections work. For the separate question of what data leaves your device and who receives it, see the [privacy policy](/legal/privacy-policy).
+
 ## Ephemeral publisher identities
 
 When you join a channel, Pombo generates **one throwaway keypair per channel** and uses it as your network-level publisher identity across all of that channel's streams. It is created on your first publish, never persisted, and discarded when you leave the channel or disconnect. The address the network sees is not your account.

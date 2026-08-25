@@ -1,13 +1,12 @@
 ---
 title: Privacy policy
 description: What data leaves your device when you use Pombo, and who receives it.
-draft: true
 ---
 
 # Privacy Policy
 
-**Effective date:** `[SET ON PUBLICATION: the date this page goes live]`
-**Last updated:** `[SET ON PUBLICATION: same date]`
+**Effective date:** 25 August 2026
+**Last updated:** 25 August 2026
 
 Pombo is built so that we cannot see your messages, your contacts, or who you
 talk to. This document explains what that means in practice, and it is careful

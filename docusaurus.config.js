@@ -102,6 +102,7 @@ const config = {
             items: [
               {label: 'Website', href: 'https://pombo.cc'},
               {label: 'Open App', href: 'https://app.pombo.cc'},
+              {label: 'Privacy policy', to: '/legal/privacy-policy'},
             ],
           },
           {
