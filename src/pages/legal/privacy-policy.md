@@ -125,8 +125,17 @@ that a message was delivered to your device, but not its content, its sender, or
 which channel it came from.
 
 The Pombo relay that triggers those signals cannot determine the recipient, the
-sender, or the channel: it receives an anonymous tag and nothing else. The
-[privacy model](/concepts/privacy-model) describes how.
+sender, or the channel. What reaches it is an anonymous tag, one of a small
+number shared by many devices, and the [privacy model](/concepts/privacy-model)
+describes how that works.
+
+To deliver anything at all, the relay does have to store your device's push
+token, alongside that tag and the times the registration was created and last
+refreshed. A push token identifies a device, not a person: it is issued by
+Google or by your browser, it carries no name, address or account, and the relay
+holds nothing that links it to your Pombo identity or to any channel. It is
+still a persistent identifier, so we name it here rather than leave you to
+assume the relay stores nothing. Turning notifications off removes it.
 
 On Android, the Firebase Messaging component sends an installation identifier to
 Google in order to receive messages at all. This is a property of using the
@@ -240,10 +249,17 @@ retrieve messages from other people's devices. Saying otherwise would be a
 promise we could not keep.
 
 Where the project itself operates infrastructure, we take responsibility for it.
-That is the push relay, which receives an anonymous tag and a proof of work and
-holds nothing that identifies you, and the hosting of the websites listed in
-section 1. If you believe we hold data about you through either, write to us at
-the address below and we will answer.
+There are three places, and they are the only ones:
+
+- **The push relay**, which stores the device push tokens described in section
+  4.6, for as long as notifications stay enabled.
+- **The websites** listed in section 1, whose hosting keeps access logs.
+- **This mailbox.** Writing to the address in section 11 means we hold your
+  message and whatever address you sent it from, for as long as it takes to
+  answer you and keep a record of having done so.
+
+If you want any of that removed, ask. For the push token, turning notifications
+off in the app is faster than writing to us.
 
 We do not claim responsibility for the Streamr Network, the Polygon blockchain,
 storage nodes, RPC providers or indexing services. They are independent, they
