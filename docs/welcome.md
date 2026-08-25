@@ -17,7 +17,7 @@ Your account is a cryptographic keypair generated on your device the first time 
 
 Creating a channel is the same: you register it and it is yours. It becomes your property. Accounts are free and instant, so keeping separate identities for separate parts of your life costs nothing.
 
-## Nothing in the middle can read you
+## Anyone can run the infrastructure
 
 Messages travel peer-to-peer across the [Streamr Network](https://streamr.network). No server sits between you and the person you are talking to, and the infrastructure that carries and keeps your messages only ever handles ciphertext.
 
