@@ -44,7 +44,7 @@ Pombo intentionally has **no per-channel "anonymous mode" toggle**. If you want 
 
 ## Metadata protections that are on by default
 
-- **ENS lookups are decoyed**: each real lookup is mixed with decoy addresses so RPC operators can't tell which one you cared about.
+- **ENS lookups are decoyed** in the direction that runs constantly: resolving the name behind an address you see mixes the real lookup with decoy addresses, in shuffled order, so RPC operators can't tell which one you cared about. Resolving a name *you typed* — starting a DM, sending an invite — is not covered, and the provider sees exactly the name you asked for.
 - **Push notifications carry no content** and use k-anonymity tags so the relay can't tell who a notification is really for — and both wake signals and registrations are published under a fresh throwaway key. See [Notifications](../guides/notifications.md).
 - **Cross-device sync is sealed to yourself**: state snapshots published to your own inbox are encrypted so only your key can read them, and any payload not authored by your own wallet is rejected.
 - **Network node IDs are not derived from your wallet.**
@@ -60,3 +60,4 @@ Honest limits, in brief — the full list is in the [threat model](../security/t
 - Membership of contract-backed channels is public blockchain state: who is allowlisted, who is banned, who paid for a subscription and until when.
 - DM inboxes are enumerable, and their traffic pattern is public: given any address, anyone can find its inbox, and a plain HTTP request to the storage node returns its retained envelopes. When messages arrived and how many is readable by anyone. What that does *not* reveal is who they were from — every message carries a different throwaway publisher and sealed content ([threat model](../security/threat-model.md#visible-metadata)).
 - Your IP address is visible to network peers, as in any P2P system. For now, use a VPN or Tor if IP privacy matters to you; a proxy-node layer built on Streamr Sponsorships is in development to address this at the protocol level.
+- **ENS profile pictures are fetched from wherever their owner points them.** Seeing someone's avatar means your client requests an image from a server *they* chose, which learns your IP address — and someone can point their avatar at a server they run precisely to collect that. Pombo requires HTTPS and routes `ipfs://` avatars through a public gateway, neither of which hides who made the request. The generated identicon is used whenever no ENS avatar is set.
