@@ -25,6 +25,12 @@ same thing, this one governs.
 This policy covers the Pombo web application at `app.pombo.cc`, the Pombo
 Android application, and the websites `pombo.cc` and `docs.pombo.cc`.
 
+It covers what we run, not what the code can be used for. Pombo is MIT-licensed
+and yours to take: if you build it yourself, host it somewhere else, or run your
+own storage node or relay, that is your service and not ours. Whoever operates
+something is responsible for it, and for anything it does with other people's
+data. This policy speaks only for the instances named above.
+
 Pombo is a client for open infrastructure that it does not own. The Streamr
 Network, the Polygon blockchain, storage nodes and RPC providers are run by
 whoever chooses to run them, under their own terms, and this policy does not
@@ -34,11 +40,11 @@ The project does run some of that infrastructure itself, as a service rather
 than as part of the application: a storage cluster and a push relay. Section 9
 lists them, and they are covered by this policy like anything else we operate.
 
-"Pombo", "we" and "us" in this document mean the project that publishes the
-applications and websites listed above. Pombo is an open source project rather
-than a company, and it holds no user data of its own. Questions about this
-policy, and any request relating to your data, reach the project at the address
-in section 11.
+"Pombo", "we" and "us" in this document mean Vasco Branco, who publishes the
+applications and websites listed above and operates the services named in
+section 9. Pombo is an open source project rather than a company. Questions
+about this policy, and any request relating to your data, reach us at the
+address in section 11.
 
 ## 2. There is no account
 
@@ -50,9 +56,13 @@ This means we have no user database, and no way to look you up. It also means
 that if you lose your key and your backup, nobody can restore your identity for
 you, including us.
 
+Nothing about you is required in order to use Pombo. There is no field you have
+to fill and no consequence for leaving one blank, because there are none to
+begin with.
+
 ## 3. What is stored on your device
 
-The following is held locally and never sent to us:
+The following is held locally, and none of it is readable by us:
 
 - Your private key, in an encrypted keystore protected by the password you set.
 - Messages you have sent and received, and the channels you have joined.
@@ -63,6 +73,9 @@ The following is held locally and never sent to us:
 
 Uninstalling the application, or clearing site data in your browser, erases all
 of it. We cannot recover it.
+
+If you have a DM inbox, a copy of most of that state travels to it as well, so
+your other devices can pick it up. Section 4.10 explains what that means.
 
 ## 4. What leaves your device, and who can see it
 
@@ -92,7 +105,12 @@ party's instead.
 
 Whichever node a channel uses, what is stored is encrypted and its operator
 cannot read it. What that operator does see is stream identifiers, message
-sizes, and timing. When the node is ours, we see exactly that and nothing more.
+sizes, and timing. Loading history is a direct request from your device to that
+node, so it also sees the address you connect from.
+
+On our own cluster that is all we keep. It joins the network like any other
+node, so it sees the addresses of its neighbours rather than of whoever
+published a message, and it does not log the addresses that connect to it.
 
 How long history is kept is set by the channel's owner, between one and 365
 days, and it is enforced by the node rather than by us.
@@ -188,11 +206,32 @@ privacy-enhanced mode. Nothing is loaded from YouTube until you press play.
 GitHub keeps ordinary web server access logs, which include IP addresses, under
 its own privacy statement.
 
+### 4.10 Syncing between your devices
+
+If you create a DM inbox, Pombo also uses it to keep your devices in step. From
+then on it publishes a snapshot of your own state there: your channel list, your
+contacts and the local names you gave them, blocked peers, cached ENS names,
+your display name, the messages you sent and the images that went with them.
+This starts automatically once the inbox exists, and you can set it to manual in
+Settings.
+
+The snapshot is encrypted to your own key before it leaves the device. Nobody
+else can read it, including us, and including whoever runs the storage node your
+inbox uses. What that operator holds is an encrypted blob, its size, and when it
+arrived, and by default that operator is us, because a DM inbox uses the cluster
+described in section 4.2 unless you chose otherwise.
+
+This is the one case where state that would otherwise never leave your device is
+also somewhere else. It is there so Pombo works on more than one device, and it
+is sealed the whole way.
+
 ## 5. What Pombo does not do
 
 - No analytics, no telemetry, no crash reporting, no usage measurement.
 - No advertising, no advertising identifiers, no tracking across sites or apps.
 - No profiling, and no inference about you from your behaviour.
+- No automated decision-making. Nothing about you is decided by a machine,
+  because nothing about you is held to decide with.
 - No selling or sharing of personal data. The little we hold is listed in
   section 9, and none of it is passed on to anyone.
 - No server that holds your messages, your contact list, or your keys.
@@ -269,24 +308,38 @@ retrieve messages from other people's devices. Saying otherwise would be a
 promise we could not keep.
 
 Where the project itself operates infrastructure, we take responsibility for it.
-There are four places, and they are the only ones:
+There are three places, and they are the only ones:
 
 - **The storage cluster** described in section 4.2, holding the encrypted
-  history of every channel that uses it, for as long as that channel's retention
-  window says. This is the largest of the four by far.
+  history of every channel that uses it, and the encrypted device-sync snapshots
+  of every inbox that uses it, for as long as their retention windows say. We
+  keep it so the history a channel's owner asked for is there when its members
+  come back, and so your own devices can find each other, and we rely on our
+  legitimate interest in running a usable service to do so. This is the largest
+  of the three by far.
 - **The push relay**, which stores the device push tokens described in section
-  4.6, for as long as notifications stay enabled.
-- **The websites** listed in section 1, whose hosting keeps access logs.
+  4.6, for as long as notifications stay enabled. We keep them only to deliver
+  the notifications you asked for, on the basis of your consent, and you can
+  withdraw it at any time by turning notifications off, which deletes the token.
 - **This mailbox.** Writing to the address in section 11 means we hold your
   message and whatever address you sent it from, for as long as it takes to
-  answer you and keep a record of having done so.
+  answer you and keep a record of having done so, on the basis of our legitimate
+  interest in answering people who write to us.
 
-None of these is a component of the application. They are services the project
-runs on open infrastructure, and each of them can be replaced by someone else's
-or by your own.
+Web server logs are not on that list, because we do not have them. The sites are
+served by GitHub Pages, and GitHub keeps those logs for its own purposes under
+its own privacy statement. We cannot read them and we cannot delete them.
+
+None of the three is a component of the application. They are services the
+project runs on open infrastructure, and each of them can be replaced by someone
+else's or by your own.
 
 If you want any of that removed, ask. For the push token, turning notifications
 off in the app is faster than writing to us.
+
+If you think we have handled your data badly, you can complain to the data
+protection authority of the country where you live. The European Data Protection
+Board [lists them all](https://www.edpb.europa.eu/about-edpb/about-edpb/members_en).
 
 We do not claim responsibility for the Streamr Network, the Polygon blockchain,
 storage nodes, RPC providers or indexing services. They are independent, they

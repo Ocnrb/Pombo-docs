@@ -17,11 +17,13 @@ When a channel (or DM inbox) is created, its stored streams are assigned to one 
 
 What storage nodes hold is exactly what the network carried: ciphertext for protected channels, contract-backed channels and DMs, signed plaintext for open channels. Storage operators are infrastructure, not custodians — they cannot read encrypted content.
 
+Reading is a direct HTTPS request from your device to the node, so whoever runs it sees which channels you open and when. Choosing a node is choosing who gets that.
+
 Closed, gated and paid channels store one thing more: their keys stream, which is what lets someone join and receive the channel's encryption key without another member being online at that exact moment.
 
 ## What lives on your device
 
-Everything personal is local, and encrypted at rest:
+Everything personal starts local, and is encrypted at rest. With a DM inbox it also travels, sealed to your own key, so your other devices can read it — see [Cross-device sync](#cross-device-sync) below.
 
 - Your key and app state (contacts, channel list, settings, image ledger) are encrypted at rest and isolated per account — in the web app as a scrypt keystore plus AES-256-GCM-encrypted IndexedDB; on Android in the platform's encrypted storage under the Android Keystore.
 - Channel messages are deliberately **not** cached locally — they are re-fetched from storage nodes each time you open a channel.
