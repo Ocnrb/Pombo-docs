@@ -33,11 +33,7 @@ Pombo has no backend: no server implements the app, and every piece of infrastru
 
 ## The web client's security policy
 
-The web app's CSP makes a single bet: **no third-party code ever runs**. Every script is bundled and served from the app's own origin; external scripts, inline scripts and `eval` are refused. Stealing keys requires compromising the app's code or its delivery — injecting content is not enough.
-
-Outbound connections are deliberately **not** restricted: custom RPC endpoints and custom storage nodes are user-configurable, and storage nodes resolve from an on-chain registry, so a fixed allowlist is incompatible with user-chosen infrastructure. (ENS avatars can live on any HTTPS host, so image loading is open for the same reason.)
-
-The accepted risk follows: if attacker code ever does run in the app's origin — an XSS that beats the sanitizer, a poisoned dependency, compromised hosting — nothing contains it. It can read the encrypted keystore and crack your password offline, and capture the key while the wallet is unlocked. **Origin compromise means vault compromise; your password's strength is the last line of defense** (scrypt makes each guess expensive).
+How the client hardens itself — the no-third-party-code CSP, message sanitization, the framing defense, and the Android signing oracle — is described in [Client security](client-security.md). What belongs in the threat model is the accepted risk behind that design: if attacker code ever does run in the app's origin — an XSS that beats the sanitizer, a poisoned dependency, compromised hosting — nothing contains it. It can read the encrypted keystore and crack your password offline, and capture the key while the wallet is unlocked. **Origin compromise means vault compromise; your password's strength is the last line of defense** (scrypt makes each guess expensive).
 
 ## Visible metadata
 

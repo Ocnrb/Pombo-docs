@@ -27,4 +27,4 @@ Requirements: Android 8.0 (API 26) or newer.
 
 ## After installing
 
-Your next step is creating an identity — see [Your identity and keys](identity.md). There is no sign-up: the app generates a keypair locally the first time you use it.
+Your next step is creating an identity — see [Account](identity.md). There is no sign-up: the app generates a keypair locally the first time you use it.
