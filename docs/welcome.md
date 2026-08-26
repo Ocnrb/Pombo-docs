@@ -7,7 +7,11 @@ description: "Pombo is an open-source, permissionless messaging and social media
 
 # What is Pombo?
 
-**Pombo is an open-source, peer-to-peer (p2p) messaging and social media app**: group channels and private direct messages, running without a company in the middle of any of it.
+**Pombo is an open-source, peer-to-peer (P2P) messaging and social media app**, built on open infrastructure instead of a company's servers.
+
+- Nobody holds your account, reads your private conversations, or profiles you.
+- Direct messages end-to-end encrypted, and a verifiable identity with no sign-up.
+- Create and explore open, token-gated or paid communities: set your own price and keep 100% of it.
 
 What follows is a consequence of how it is built, not a policy anyone maintains.
 
@@ -43,7 +47,7 @@ Everything else is free. Joining an open channel, chatting, DMs and file sharing
 
 ## Where to start
 
-| | |
+| You want to… | Start here |
 |---|---|
 | **Try it** | [Install Pombo](getting-started/install.md), then [first steps](getting-started/first-steps.md) |
 | **Run a channel** | [Managing channels](guides/managing-channels.md) · [Channel access](concepts/channel-access.md) |

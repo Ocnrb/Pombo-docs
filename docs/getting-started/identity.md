@@ -1,10 +1,12 @@
 ---
 id: identity
-title: Your identity and keys
+title: Account
 description: How Pombo accounts work — locally generated keypairs, no sign-up, no recovery service.
 ---
 
-# Your identity and keys
+# Account
+
+*Your identity and keys*
 
 A Pombo account is an **Ethereum keypair generated locally on your device**. Creating one costs nothing, requires no email or phone number, and never touches a server.
 
