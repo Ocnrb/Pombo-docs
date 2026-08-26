@@ -1,10 +1,10 @@
 ---
 id: client
-title: Client
+title: Client & Protocol
 description: The system in one narrative — a client on your device, Streamr for transport, storage nodes for history, Polygon for ownership.
 ---
 
-# Client
+# Client & Protocol
 
 Pombo has no message backend: no server receives, routes or authorizes your conversations. Everything you'd expect a backend to do is done either by the client on your device or by open infrastructure that anyone can run. The client sits on top of three layers:
 
